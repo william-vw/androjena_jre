@@ -1,0 +1,7 @@
+@prefix : <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> .
+
+:patientA :hasExcessiveDaytimeSleepiness true ;
+	:hasChokingOrGaspingDuringSleep true ;
+	:hasRecurrentAwakeningsFromSleep true ;
+	:hasUnrefreshingSleep true ;
+	:hasNumberOfApneaSleepEvents 6 .

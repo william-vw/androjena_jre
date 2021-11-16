@@ -1,0 +1,4 @@
+renamed to .txt:
+it.polimi.dei.dbgroup.pedigree.androjena.xml.DOMTransformer;
+
+commented out referring code in com.hp.hpl.jena.rdf.arp.DOM2Model
