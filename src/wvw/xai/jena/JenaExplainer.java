@@ -29,15 +29,22 @@ public class JenaExplainer {
 
 		InfModel sa = exp.sleepApneaCase();
 
-//		exp.test(sa);
+		// - print derivations as strings
+		// (should be same as testOriginal)
 
 //		DerivationStringPrinter printer = new DerivationStringPrinter(new PrintWriter(System.out), true);
 //		printer.visit(sa);
 
-		DerivationPmlPrinter printer = new DerivationPmlPrinter();
-		printer.visit(sa);
-		JenaKb pml = printer.getPml();
-		pml.printAll("N3");
+		// - print derivations using PML
+
+//		DerivationPmlPrinter printer = new DerivationPmlPrinter();
+//		printer.visit(sa);
+//		JenaKb pml = printer.getPml();
+//		pml.printAll("N3");
+
+		// - print derivations using Derivation#printTrace
+
+//		exp.testOriginal(sa);
 	}
 
 	public InfModel sleepApneaCase() throws Exception {
@@ -67,11 +74,11 @@ public class JenaExplainer {
 		return infModel;
 	}
 
-	public void test(InfModel infModel) {
+	public void testOriginal(InfModel infModel) {
 		PrintWriter out = new PrintWriter(System.out);
 		for (StmtIterator i = infModel.listStatements(null, null, (RDFNode) null); i.hasNext();) {
 			Statement s = i.nextStatement();
-			System.out.println(s);
+//			System.out.println(s);
 
 			Iterator<Derivation> it = infModel.getDerivation(s);
 			if (it != null) {
