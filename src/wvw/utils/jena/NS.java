@@ -21,6 +21,7 @@ public class NS {
 	public static final String in = "http://niche.cs.dal.ca/ns/cig/input/fhir.owl#";
 	public static final String ckd = "http://niche.cs.dal.ca/ns/cig/kidney_statins.owl#";
 	public static final String pml = "http://provenanceweb.org/ns/pml#";
+	public static final String prov = "http://www.w3.org/ns/prov#";
 	public static final String sa = "http://niche.cs.dal.ca/ns/sleep_apnea.owl#";
 
 	static {
@@ -39,6 +40,7 @@ public class NS {
 		map.put("in", in);
 		map.put("ckd", ckd);
 		map.put("pml", pml);
+		map.put("prov", prov);
 		map.put("sa", sa);
 	}
 

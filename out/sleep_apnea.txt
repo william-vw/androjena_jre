@@ -1,0 +1,17 @@
+Rule R2 concluded (:patientA :hasDiagnostic :DiagnosticB1) <-
+    Fact (:patientA :hasChokingOrGaspingDuringSleep 'true'^^http://www.w3.org/2001/XMLSchema#boolean)
+Rule R6 concluded (:patientA :hasDiagnosis :SleepApnea) <-
+    Rule R1 concluded (:patientA :hasDiagnostic :DiagnosticA) <-
+        Fact (:patientA :hasExcessiveDaytimeSleepiness 'true'^^http://www.w3.org/2001/XMLSchema#boolean)
+    Rule R5 concluded (:patientA :hasDiagnostic :DiagnosticC) <-
+        Fact (:patientA :hasNumberOfApneaSleepEvents '6'^^http://www.w3.org/2001/XMLSchema#integer)
+        Functor ge('6'^^http://www.w3.org/2001/XMLSchema#integer,'5'^^http://www.w3.org/2001/XMLSchema#int)
+Rule R1 concluded (:patientA :hasDiagnostic :DiagnosticA) <-
+    Fact (:patientA :hasExcessiveDaytimeSleepiness 'true'^^http://www.w3.org/2001/XMLSchema#boolean)
+Rule R4 concluded (:patientA :hasDiagnostic :DiagnosticB3) <-
+    Fact (:patientA :hasUnrefreshingSleep 'true'^^http://www.w3.org/2001/XMLSchema#boolean)
+Rule R5 concluded (:patientA :hasDiagnostic :DiagnosticC) <-
+    Fact (:patientA :hasNumberOfApneaSleepEvents '6'^^http://www.w3.org/2001/XMLSchema#integer)
+    Functor ge('6'^^http://www.w3.org/2001/XMLSchema#integer,'5'^^http://www.w3.org/2001/XMLSchema#int)
+Rule R3 concluded (:patientA :hasDiagnostic :DiagnosticB2) <-
+    Fact (:patientA :hasRecurrentAwakeningsFromSleep 'true'^^http://www.w3.org/2001/XMLSchema#boolean)

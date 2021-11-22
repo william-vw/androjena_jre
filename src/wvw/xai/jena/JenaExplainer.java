@@ -27,6 +27,8 @@ public class JenaExplainer {
 	public static void main(String[] args) throws Exception {
 		JenaExplainer exp = new JenaExplainer();
 
+		String dataUri = "http://niche.cs.dal.ca/ns/sleep_apnea.owl#";
+		String rulesUri = "http://niche.cs.dal.ca/ns/sleep_apnea.jena#";
 		InfModel sa = exp.sleepApneaCase();
 
 		// - print derivations as strings
@@ -37,13 +39,12 @@ public class JenaExplainer {
 
 		// - print derivations using PML
 
-//		DerivationPmlPrinter printer = new DerivationPmlPrinter();
-//		printer.visit(sa);
-//		JenaKb pml = printer.getPml();
-//		pml.printAll("N3");
+		DerivationPmlPrinter printer = new DerivationPmlPrinter(dataUri, rulesUri);
+		printer.visit(sa);
+		JenaKb pml = printer.getPml();
+		pml.printAll("N3");
 
 		// - print derivations using Derivation#printTrace
-
 //		exp.testOriginal(sa);
 	}
 

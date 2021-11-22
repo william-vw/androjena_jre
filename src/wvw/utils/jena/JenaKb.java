@@ -27,6 +27,7 @@ import com.hp.hpl.jena.rdf.model.ReifiedStatement;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.vocabulary.RDF;
 
 import wvw.utils.IOUtils;
 
@@ -103,11 +104,25 @@ public class JenaKb {
 	public Resource blankNode() {
 		return model.createResource(new AnonId());
 	}
+	
+	public Resource blankNode(Resource type) {
+		Resource ret = model.createResource(new AnonId());
+		model.add(ret, RDF.type, type);
+		
+		return ret;
+	}
 
 	public Resource blankNode(String id) {
 		return model.createResource(new AnonId(id));
 	}
-
+	
+	public Resource blankNode(String id, Resource type) {
+		Resource ret = model.createResource(new AnonId(id));
+		model.add(ret, RDF.type, type);
+		
+		return ret;
+	}
+	
 	public Resource blankNode(AnonId id) {
 		return model.createResource(id);
 	}
