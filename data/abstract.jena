@@ -1,0 +1,26 @@
+#- init
+#	(?en xpl:level 0) -> (<> tpl:current ?en) 
+
+#- onSelectReason
+#	(<> tpl:current [selection])
+
+[abstract1:
+	(<> xpl:current ?en)
+	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt)
+	(?stmt rdf:predicate ?p) (?stmt rdf:object ?o)
+	# makeSkolem(?sk ?en xpl:Recommendation)
+->
+	(<> xpl:output ?sk) (?sk xpl:included true) (?sk a xpl:Recommendation) 
+	(?sk xpl:entity ?en) (?sk xpl:verb ?p) (?sk xpl:object ?o) 
+]
+
+
+[abstract2:	
+	(<> xpl:current ?en0) (?en0 xpl:via ?en) 
+	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt) 
+	(?stmt rdf:predicate ?p) (?stmt rdf:object ?o)
+	# makeSkolem(?sk ?en xpl:Reason)
+->
+	(<> xpl:output ?en) (?en xpl:included true) (?en a xpl:Reason) 
+	(?en xpl:entity ?en) (?en xpl:verb ?p) (?en xpl:object ?o)
+]

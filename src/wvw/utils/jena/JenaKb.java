@@ -78,7 +78,7 @@ public class JenaKb {
 	}
 
 	public Resource resource(String qName) {
-		return model.createResource(NS.toUri(qName));
+		return model.createResource(NS.uri(qName));
 	}
 
 	public Resource resourceFromUri(String uri) {
@@ -94,7 +94,7 @@ public class JenaKb {
 	}
 
 	public Resource resource(String qName, Resource type) {
-		return model.createResource(NS.toUri(qName), type);
+		return model.createResource(NS.uri(qName), type);
 	}
 
 	public Resource resourceFromUri(String uri, Resource type) {
@@ -128,7 +128,7 @@ public class JenaKb {
 	}
 
 	public Property property(String qName) {
-		return model.createProperty(NS.toUri(qName));
+		return model.createProperty(NS.uri(qName));
 	}
 
 	public Property propertyFromUri(String uri) {

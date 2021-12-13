@@ -1,0 +1,165 @@
+get highest-level explanations:
+
+Yail templates + generators to fill in placeholders (?) + resources (?)
+	using rules: not requiring a re-compilation (e.g., enter online location)
+	custom Java file: likely more powerful & easier but requires re-compilation 
+	or, using Yail ..
+
+on-interaction 
+	on-select derivation ..
+		ideally just customize existing "scripts" (e.g., fill in custom images)
+		or, those customizations could simply be linked to resources
+
+want to avoid creating a new templating language here :-(
+
+
+(?en0 a :NodeSet)
+
+# en1 could e.g., unify with en0 if final notExists is true
+<> log:notIncludes { ?en1!prov:wasGeneratedBy!prov:qualifiedUsage prov:entity ?en0 } .
+(?en1 prov:wasGeneratedBy ?gen0) (?gen0 prov:qualifiedUsage ?us0) notExists(?us0 prov:entity ?en0)
+
+# .. or generate a level integer
+	(?en1 prov:wasGeneratedBy ?gen0) (?gen0 prov:derivationLevel 0)
+->
+	(?en1 epm:level 0)
+
+
+# - generic preprocessing
+# why not generate these in the printer .. much easier
+# sort antecedents to get "deterministic" output ..
+
+
+
+# domain-specific generators
+
+-- selector 
+	level of abstraction; contrastive 
+	(can be combined)
+	
+-- generator
+	 graphical; short sentences
+
+
+
+>> selectors:
+
+
+> trace-based
+
+.. could be the current "epm"
+
+
+> contextual (dynamic, sensor-based values)
+
+# https://www.w3.org/TR/prov-o/#hadPrimarySource
+# https://www.w3.org/TR/prov-o/#qualifiedPrimarySource
+
+	(<> tpl:output ?out) (?out tpl:type tpl:reason) 
+	(?out tpl:entity ?en) (?out tpl:verb ?p) (?out tpl:object ?o)
+	(?en prov:hadPrimarySource ?src) (?src a ssn:Sensor) # if also some sort of recency, then include it ..
+->
+	(?out tpl:included true)
+
+
+	(<> tpl:output ?out) (?out tpl:type tpl:reason) (?out tpl:included true) 
+	(?out tpl:entity ?en) (?out tpl:verb ?p) (?out tpl:object ?o)
+	(?en prov:hadPrimarySource ?src) (?src a :HealthProfileOrSomething)
+->
+	remove(?out tpl:included true)
+	(?out tpl:included false)
+	
+	
+> contrastive
+why this one, and not that one?
+	requires a rule analysis
+
+what would it take for me to be in yellow zone?
+	run backward chainer (or some hacky method)
+		and check which antecedents are missing	
+
+
+> counter-factual (possibly combined w/ contrastive)
+	simply requires re-running the rules with different inputs
+	
+
+> scientific
+	should be rather straightforward
+
+
+> trace-based
+	should be rather straightforward
+
+
+> case-based
+	.. different type of reasoning (?)
+	
+---
+
+
+>> generators
+	
+> graphical
+
+	# sort of resource-mapping
+	(<> tpl:output ?out) (?out tpl:verb ?p) (?out tpl:object ?o)
+	(<> tpl:resources ?r) (?r ?p ?r2) (?r2 ?o ?img)
+->
+	(?out tpl:img ?img)
+	
+
+> textual
+	
+	(<> tpl:current ?en)
+	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt) 
+	(?stmt rdf:subject ?s) (?stmt rdf:predicate ?p) (?stmt rdf:object ?o)
+	(?s tm:string ?ss) (?p tmp:string ?ps) (?o tmp:string ?os)
+->
+	concat (?sentence ?ss " " ?ps " " ?os) (?en tpl:sentence sentence)
+
+
+	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt0) 
+	(?stmt rdf:subject ?s) (?stmt rdf:predicate ?p) (?stmt rdf:object ?o)
+	(?s tm:string ?ss) (?p tmp:string ?ps) isBoolean(?o)
+->
+	concat (?sentence ?ss " " ?ps)
+
+
+	(?stmt tmp:term ?t) isVariable(?t) str(?str ?t) equals(?str "patient")
+->
+	(?t tmp:string tpl-labels:you)
+
+
+	(?stmt tmp:term ?t) isVariable(?t) str(?str ?t) notEquals(?str "patient")
+->
+	(?t tmp:string ?str)
+
+
+	(?stmt tmp:term ?t) isURI(?t) (?t rdfs:label ?str)
+->
+	(?t tmp:string ?str)
+
+
+	(?en epm:via ?en0) (?en tpl:sentence ?s) (?en0 tpl:sentence ?s0) 
+		notExists(?en tpl:appended ?a) (or "(?en tpl:appended ?a) len(?a 0)")
+->
+	concat (?s " " tpl-labels:is_because " " ?s0)
+
+
+	(?en epm:via ?en0) (?en0 tpl:sentence ?s0) (?en tpl:appended ?a) notIncludes(?a ?s0)
+		(len(?a ?l) greaterThan(?l 0))
+	remove(?en tpl:appended ?a)
+->
+	concat (?a ", and " ?s0) (en tpl:appended ?a)
+
+...
+
+?en tpl:sentence ?s .
+(?sub
+{ ?en epm:via ?en0 . ?en0 tpl:sentence ?sub }
+?allsubs) log:collectAllIn <> .
+
+(?allsubs ", and") str:join ?ands .
+( ?s " " tpl-labels:is_because " " ?allsubs ".") str:append ?final .
+
+...

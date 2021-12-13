@@ -2,3 +2,9 @@ renamed to .txt:
 it.polimi.dei.dbgroup.pedigree.androjena.xml.DOMTransformer;
 
 commented out referring code in com.hp.hpl.jena.rdf.arp.DOM2Model
+
+added
+	 public static List<Rule> rulesFromStream( InputStream in )
+to com.hp.hpl.jena.reasoner.rulesys.Rule.java
+
+look for "// edit wvw"

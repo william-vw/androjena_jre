@@ -22,6 +22,7 @@ public class NS {
 	public static final String ckd = "http://niche.cs.dal.ca/ns/cig/kidney_statins.owl#";
 	public static final String pml = "http://provenanceweb.org/ns/pml#";
 	public static final String prov = "http://www.w3.org/ns/prov#";
+	public static final String xpl = "http://niche.cs.dal.ca/xpl#";
 	public static final String sa = "http://niche.cs.dal.ca/ns/sleep_apnea.owl#";
 
 	static {
@@ -41,6 +42,7 @@ public class NS {
 		map.put("ckd", ckd);
 		map.put("pml", pml);
 		map.put("prov", prov);
+		map.put("xpl", xpl);
 		map.put("sa", sa);
 	}
 
@@ -64,7 +66,7 @@ public class NS {
 			return null;
 	}
 
-	public static String toUri(String uri) {
+	public static String uri(String uri) {
 		if (!uri.contains(":"))
 			return null;
 

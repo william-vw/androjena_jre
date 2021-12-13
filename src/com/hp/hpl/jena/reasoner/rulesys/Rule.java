@@ -11,6 +11,8 @@ package com.hp.hpl.jena.reasoner.rulesys;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -477,6 +479,14 @@ public class Rule implements ClauseEntry {
         catch (WrappedIOException e)
             { throw new RulesetNotFoundException( uri ); }
     }
+    
+    /**
+     * Answer the list of rules parsed from the given input stream.
+     */
+    public static List<Rule> rulesFromStream( InputStream in ) {
+    	BufferedReader br = new BufferedReader(new InputStreamReader(in));
+    	return parseRules( Rule.rulesParserFromReader( br ) );
+    }
         
     /**
      * Processes the source reader stripping off comment lines and noting prefix
@@ -491,8 +501,9 @@ public class Rule implements ClauseEntry {
            Map<String, String> prefixes = new HashMap<String, String>();
            List<Rule> preloadedRules = new ArrayList<Rule>();
            while ((line = src.readLine()) != null) {
-               if (line.startsWith("#")) continue;     // Skip comment lines
-               line = line.trim();
+        	   // edit wvw
+        	   line = line.trim();
+        	   if (line.startsWith("#")) continue;     // Skip comment lines
                if (line.startsWith("//")) continue;    // Skip comment lines
                if (line.startsWith("@prefix")) {
                    line = line.substring("@prefix".length());
