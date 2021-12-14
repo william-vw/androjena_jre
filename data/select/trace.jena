@@ -1,0 +1,15 @@
+[trace1:
+	(<> xpl:current ?en)
+	makeSkolem(?out ?en xpl:Recommendation)
+->
+	(<> xpl:output ?out) (?out rdf:type xpl:Recommendation) 
+	(?out xpl:entity ?en) (?en xpl:inOutput ?out)
+]
+
+[trace2:	
+	(?out0 xpl:entity ?en0) (?en0 xpl:via ?en) 
+	makeSkolem(?out ?en xpl:Reason)
+->
+	(<> xpl:output ?out) (?out rdf:type xpl:Reason) 
+	(?out xpl:entity ?en) (?en xpl:inOutput ?out)
+]

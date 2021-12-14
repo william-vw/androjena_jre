@@ -1,0 +1,5 @@
+[all1:
+	(<> xpl:output ?out) (?out rdf:type xpl:Reason)
+->
+	(?out xpl:included "true"^^xsd:boolean)
+]

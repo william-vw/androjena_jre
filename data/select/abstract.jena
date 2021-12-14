@@ -1,0 +1,30 @@
+#- init
+#	noValue(?en0 xpl:via ?en) -> (<> xpl:current ?en) # root deriv (does not support other deriv)
+# OR (better)
+#	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt) (?stmt rdf:predicate sa:hasDiagnosis) -> (<> xpl:current ?en)
+
+#- onSelectReason
+#	(<> xpl:current [selection])
+
+[abstract1:
+	(<> xpl:current ?en)
+	makeSkolem(?out ?en xpl:Recommendation)
+->
+	(<> xpl:output ?out) (?out rdf:type xpl:Recommendation) 
+	(?out xpl:entity ?en) (?en xpl:inOutput ?out)
+]
+
+[abstract2:	
+	(<> xpl:current ?en0) (?en0 xpl:via ?en) 
+	makeSkolem(?out ?en xpl:Reason)
+->
+	(<> xpl:output ?out) (?out rdf:type xpl:Reason) 
+	(?out xpl:entity ?en) (?en xpl:inOutput ?out)
+]
+
+[abstract3:
+	(<> xpl:output ?out) (?out rdf:type xpl:Reason)
+	(?out xpl:entity ?en) (?en xpl:via ?en0)
+->
+	(?out xpl:expandable "true"^^xsd:boolean)
+]

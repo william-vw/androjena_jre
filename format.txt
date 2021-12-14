@@ -45,11 +45,6 @@ want to avoid creating a new templating language here :-(
 >> selectors:
 
 
-> trace-based
-
-.. could be the current "epm"
-
-
 > contextual (dynamic, sensor-based values)
 
 # https://www.w3.org/TR/prov-o/#hadPrimarySource
@@ -75,7 +70,9 @@ why this one, and not that one?
 	requires a rule analysis
 
 what would it take for me to be in yellow zone?
+what would it take not to have to exercise / eat this pizza?
 	run backward chainer (or some hacky method)
+		goal = some recommendation
 		and check which antecedents are missing	
 
 
@@ -107,59 +104,15 @@ what would it take for me to be in yellow zone?
 ->
 	(?out tpl:img ?img)
 	
-
-> textual
 	
-	(<> tpl:current ?en)
-	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt) 
-	(?stmt rdf:subject ?s) (?stmt rdf:predicate ?p) (?stmt rdf:object ?o)
-	(?s tm:string ?ss) (?p tmp:string ?ps) (?o tmp:string ?os)
-->
-	concat (?sentence ?ss " " ?ps " " ?os) (?en tpl:sentence sentence)
+--
 
+"code"
 
-	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt0) 
-	(?stmt rdf:subject ?s) (?stmt rdf:predicate ?p) (?stmt rdf:object ?o)
-	(?s tm:string ?ss) (?p tmp:string ?ps) isBoolean(?o)
-->
-	concat (?sentence ?ss " " ?ps)
-
-
-	(?stmt tmp:term ?t) isVariable(?t) str(?str ?t) equals(?str "patient")
-->
-	(?t tmp:string tpl-labels:you)
-
-
-	(?stmt tmp:term ?t) isVariable(?t) str(?str ?t) notEquals(?str "patient")
-->
-	(?t tmp:string ?str)
-
-
-	(?stmt tmp:term ?t) isURI(?t) (?t rdfs:label ?str)
-->
-	(?t tmp:string ?str)
-
-
-	(?en epm:via ?en0) (?en tpl:sentence ?s) (?en0 tpl:sentence ?s0) 
-		notExists(?en tpl:appended ?a) (or "(?en tpl:appended ?a) len(?a 0)")
-->
-	concat (?s " " tpl-labels:is_because " " ?s0)
-
-
-	(?en epm:via ?en0) (?en0 tpl:sentence ?s0) (?en tpl:appended ?a) notIncludes(?a ?s0)
-		(len(?a ?l) greaterThan(?l 0))
-	remove(?en tpl:appended ?a)
-->
-	concat (?a ", and " ?s0) (en tpl:appended ?a)
-
-...
-
-?en tpl:sentence ?s .
-(?sub
-{ ?en epm:via ?en0 . ?en0 tpl:sentence ?sub }
-?allsubs) log:collectAllIn <> .
-
-(?allsubs ", and") str:join ?ands .
-( ?s " " tpl-labels:is_because " " ?allsubs ".") str:append ?final .
-
-...
+ExplanationTemplate
+	parametrizedTemplate
+	
+	instantiate()
+		execute rules / query
+		for each result / reason binding:
+			create new component ..

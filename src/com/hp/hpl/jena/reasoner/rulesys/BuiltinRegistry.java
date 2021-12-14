@@ -9,8 +9,62 @@
  *****************************************************************/
 package com.hp.hpl.jena.reasoner.rulesys;
 
-import com.hp.hpl.jena.reasoner.rulesys.builtins.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.hp.hpl.jena.reasoner.rulesys.builtins.AddOne;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.AssertDisjointPairs;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Bound;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.CountLiteralValues;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Difference;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Drop;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Equal;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.GE;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.GreaterThan;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Hide;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.IsBNode;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.IsDType;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.IsFunctor;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.IsLiteral;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.IsUri;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.JoinLinkedStrings;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.LE;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.LessThan;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ListContains;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ListEntry;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ListEqual;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ListLength;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ListMapAsObject;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ListMapAsSubject;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ListNotContains;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ListNotEqual;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.LocalName;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.MakeInstance;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.MakeTemp;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Max;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Min;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.NoValue;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.NotBNode;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.NotDType;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.NotEqual;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.NotFunctor;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.NotLiteral;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Now;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Print;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Product;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Quotient;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Regex;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Remove;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.ReplaceAll;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.SplitOnCase;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.StrConcat;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Sum;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Table;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.TableAll;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.Unbound;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.UriConcat;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.UriStr;
 
 /** * A registry for mapping functor names on java objects (instances 
  * of subclasses of Builtin) which implement their behvaiour.
@@ -83,6 +137,15 @@ public class BuiltinRegistry {
         theRegistry.register(new Regex());
         
         theRegistry.register(new Now());
+        
+        // edit wvw
+        theRegistry.register(new MakeSkolem());
+        theRegistry.register(new IsUri());
+        theRegistry.register(new UriStr());
+        theRegistry.register(new LocalName());
+        theRegistry.register(new JoinLinkedStrings());
+        theRegistry.register(new SplitOnCase());
+        theRegistry.register(new ReplaceAll());
         
         // Special purposes support functions for OWL
         theRegistry.register(new AssertDisjointPairs());

@@ -1094,11 +1094,18 @@ public class ModelCom
     public Resource createResource()  
         { return IteratorFactory.asResource( Node.createAnon(),this ); }
     
+    // edit wvw
+    public Resource createResource(Node n)  
+    	{ return IteratorFactory.asResource( n,this ); }
+    
     public Resource createResource( String uri )  
         { return getResource( uri ); }
     
     public Property createProperty( String uri )  
         { return getProperty( uri ); }
+    
+    public Property createProperty( Node n )  
+    { return IteratorFactory.asProperty( n,this ); }
     
     public Property createProperty(String nameSpace, String localName)
         { return getProperty(nameSpace, localName); }

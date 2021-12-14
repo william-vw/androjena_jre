@@ -1,5 +1,6 @@
 package wvw.xai.jena;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,8 @@ import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.reasoner.Derivation;
 import com.hp.hpl.jena.reasoner.InfGraph;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
@@ -19,19 +22,21 @@ import com.hp.hpl.jena.reasoner.rulesys.RuleDerivation.RuleFunctorMatch;
 import com.hp.hpl.jena.reasoner.rulesys.RuleDerivation.RuleTripleMatch;
 
 import wvw.utils.jena.JenaKb;
+import wvw.utils.jena.NS;
 
 public class DerivationPmlPrinter extends DerivationVisitorBase {
 
 	private String dataUri;
 	private String rulesUri;
-
 	private int cnt = 0;
+	private boolean includesProv;
 
 	private JenaKb pml;
 
-	public DerivationPmlPrinter(String dataUri, String rulesUri) {
+	public DerivationPmlPrinter(String dataUri, String rulesUri, boolean includesProv) {
 		this.dataUri = dataUri;
 		this.rulesUri = rulesUri;
+		this.includesProv = includesProv;
 	}
 
 	@Override
@@ -57,7 +62,7 @@ public class DerivationPmlPrinter extends DerivationVisitorBase {
 		// -- conclusion
 		Triple conclusion = deriv.getConclusion();
 
-		Resource info = reifiedTripleInfo(conclusion);
+		Resource info = reifiedTripleInfo(conclusion, false);
 		// TODO should not be a sub-property of prov:generated
 		// (entity generating an entity)
 		pml.add(nodeSet, pml.property("pml:hasConclusion"), info);
@@ -85,6 +90,9 @@ public class DerivationPmlPrinter extends DerivationVisitorBase {
 		InfGraph infGraph = (InfGraph) infModel.getGraph();
 
 		List<RuleClauseMatch> matches = deriv.getMatches();
+		if (includesProv)
+			matches = collapseProvClauses(matches);
+
 		for (int i = 0; i < matches.size(); i++) {
 			RuleClauseMatch match = matches.get(i);
 
@@ -124,6 +132,32 @@ public class DerivationPmlPrinter extends DerivationVisitorBase {
 		return nodeSet;
 	}
 
+	private List<RuleClauseMatch> collapseProvClauses(List<RuleClauseMatch> matches) {
+		List<RuleClauseMatch> ret = new ArrayList<>();
+
+		for (int i = 0; i < matches.size(); i++) {
+			RuleClauseMatch match = matches.get(i);
+
+			if (match instanceof RuleTripleMatch) {
+				RuleTripleMatch tm = (RuleTripleMatch) match;
+
+				Triple cur = tm.getTriple();
+				if (cur.getPredicate().getURI().equals(NS.uri("prov:value"))) {
+					Triple prev = ((RuleTripleMatch) ret.get(i - 1)).getTriple();
+
+					Triple repl = new Triple(prev.getSubject(), prev.getPredicate(), cur.getObject());
+					ret.set(i - 1, new RuleTripleMatch(repl));
+
+					continue;
+				}
+			}
+
+			ret.add(match);
+		}
+
+		return ret;
+	}
+
 	@Override
 	public Resource visit(RuleTripleMatch match) {
 		if (assertLog.containsKey(match))
@@ -134,7 +168,7 @@ public class DerivationPmlPrinter extends DerivationVisitorBase {
 
 		// -- conclusion
 
-		Resource info = reifiedTripleInfo(match.getTriple());
+		Resource info = reifiedTripleInfo(match.getTriple(), true);
 		pml.add(nodeSet, pml.property("pml:hasConclusion"), info); // prov:generated
 
 		// - InferenceStep
@@ -200,12 +234,44 @@ public class DerivationPmlPrinter extends DerivationVisitorBase {
 		pml.add(srcUsage, pml.property("prov:hadRole"), pml.resource("pml:Source"));
 	}
 
-	private Resource reifiedTripleInfo(Triple t) {
+	private Resource reifiedTripleInfo(Triple t, boolean data) {
 		Resource info = pml.resource("pml:info" + cnt++, pml.resource("pml:Information"));
 		pml.add(info, pml.property("prov:value"), pml.reify(t));
 		pml.add(info, pml.property("dc:format"), pml.literal("RDF"));
 
+		if (includesProv && data)
+			insertDataProv(t, info);
+
 		return info;
+	}
+
+	private void insertDataProv(Triple t, Resource info) {
+		// whether the data assertion actually had a provenance entity as value
+		// (would have been collapsed earlier)
+		StmtIterator it = infModel.listStatements(infModel.createResource(t.getSubject()),
+				infModel.createProperty(t.getPredicate()), (RDFNode) null);
+		while (it.hasNext()) {
+			Statement stmt = it.next();
+			Resource prov = (Resource) stmt.getObject();
+
+			// get all provenance data
+			StmtIterator it2 = prov.listProperties();
+			while (it2.hasNext()) {
+				Statement stmt2 = it2.next();
+
+				if (!stmt.getPredicate().getURI().equals(NS.uri("prov:value"))) {
+					pml.add(info, stmt2.getPredicate(), stmt2.getObject());
+
+					if (stmt2.getObject().isResource())
+						copyIntoPml((Resource) stmt2.getObject());
+				}
+			}
+		}
+	}
+
+	// TODO currently only copying 1 level
+	private void copyIntoPml(Resource r) {
+		pml.addAll(r.listProperties().toList());
 	}
 
 	private Resource functorInfo(String name, Node[] args) {

@@ -19,7 +19,6 @@ import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
 import com.hp.hpl.jena.util.PrintUtil;
 
-import wvw.utils.IOUtils;
 import wvw.utils.jena.JenaKb;
 import wvw.utils.jena.NS;
 
@@ -37,17 +36,24 @@ public class JenaExplainer {
 
 		Model model = ModelFactory.createDefaultModel();
 		// load data
-		model.read(assetMan.open("out/sleep_apnea.ttl"), "", "TURTLE");
+		model.read(assetMan.open("data/patient_prov.ttl"), "", "TURTLE");
+//		model.read(assetMan.open("out/sleep-apnea_a-b2.ttl"), "", "TURTLE");
+		model.read(assetMan.open("out/sleep-apnea_a-c.ttl"), "", "TURTLE");
 
-		PrintUtil.registerPrefix("", NS.sa);
-		PrintUtil.registerPrefix("sa", NS.sa);
-		PrintUtil.registerPrefix("xpl", NS.xpl);
-		PrintUtil.registerPrefix("pml", NS.pml);
 		PrintUtil.registerPrefix("prov", NS.prov);
+		PrintUtil.registerPrefix("pml", NS.pml);
+		PrintUtil.registerPrefix("xpl", NS.xpl);
+		PrintUtil.registerPrefix("sa", NS.sa);
+		PrintUtil.registerPrefix("", NS.sa);
 
 		// load & parse rules
-		List<Rule> rules = Rule.rulesFromStream(assetMan.open("data/trace.jena"));
-		rules.addAll(Rule.rulesFromStream(assetMan.open("data/abstract.jena")));
+		List<Rule> rules = Rule.rulesFromStream(assetMan.open("data/select/epm.jena"));
+//		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/abstract.jena")));
+		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/trace.jena")));
+//		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/filter-none.jena")));
+		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/filter-static.jena")));
+		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/add-info.jena")));
+		rules.addAll(Rule.rulesFromStream(assetMan.open("data/gen/sentence.jena")));
 
 		// create inf model
 		GenericRuleReasoner reasoner = new GenericRuleReasoner(rules);
@@ -55,10 +61,13 @@ public class JenaExplainer {
 
 		InfModel infModel = ModelFactory.createInfModel(reasoner, model);
 
-		infModel.add(infModel.createResource("<>"), infModel.createProperty(NS.uri("xpl:current")),
-				infModel.createResource(NS.uri("pml:nodeSet0")));
+		infModel.add(infModel.createResource(""), infModel.createProperty(NS.uri("xpl:current")),
+				infModel.createResource(NS.uri("pml:nodeSet4")));
+//				infModel.createResource(NS.uri("pml:nodeSet6")));
+//				infModel.createResource(NS.uri("pml:nodeSet10")));
 
-		infModel.getDeductionsModel().write(System.out, "TURTLE");
+		infModel.write(System.out, "TURTLE");
+//		infModel.getDeductionsModel().write(System.out, "TURTLE");
 	}
 
 	public InfModel dumpSleepApneaCase() throws Exception {
@@ -67,14 +76,15 @@ public class JenaExplainer {
 		Model model = ModelFactory.createDefaultModel();
 
 		// load data
-		model.read(assetMan.open("data/patient.ttl"), "", "TURTLE");
-		model.read(assetMan.open("data/sleep_apnea.ttl"), "", "TURTLE");
+		model.read(assetMan.open("data/patient_prov.ttl"), "", "TURTLE");
+		model.read(assetMan.open("data/sleep-apnea.ttl"), "", "TURTLE");
 
-		PrintUtil.registerPrefix("", "http://niche.cs.dal.ca/ns/sleep_apnea.owl#");
+		PrintUtil.registerPrefix("prov", NS.prov);
 		PrintUtil.registerPrefix("sa", "http://niche.cs.dal.ca/ns/sleep_apnea.owl#");
+		PrintUtil.registerPrefix("", "http://niche.cs.dal.ca/ns/sleep_apnea.owl#");
 
 		// load & parse rules
-		List<Rule> rules = Rule.parseRules(IOUtils.read(assetMan.open("data/sleep_apnea.jena")));
+		List<Rule> rules = Rule.rulesFromStream(assetMan.open("data/sleep-apnea_prov.jena"));
 
 		// create inf model
 		GenericRuleReasoner reasoner = new GenericRuleReasoner(rules);
@@ -84,6 +94,7 @@ public class JenaExplainer {
 		infModel.setDerivationLogging(true);
 
 //		infModel.write(System.out, "TURTLE");
+//		infModel.getDeductionsModel().write(System.out, "TURTLE");
 
 		// - print derivations as strings
 		// (should be same as testOriginal)
@@ -96,7 +107,7 @@ public class JenaExplainer {
 		String dataUri = "http://niche.cs.dal.ca/ns/sleep_apnea.owl#";
 		String rulesUri = "http://niche.cs.dal.ca/ns/sleep_apnea.jena#";
 
-		DerivationPmlPrinter printer = new DerivationPmlPrinter(dataUri, rulesUri);
+		DerivationPmlPrinter printer = new DerivationPmlPrinter(dataUri, rulesUri, true);
 		printer.visit(infModel);
 
 		JenaKb pml = printer.getPml();

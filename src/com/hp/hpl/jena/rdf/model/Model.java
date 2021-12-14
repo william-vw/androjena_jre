@@ -7,6 +7,7 @@
 package com.hp.hpl.jena.rdf.model;
 
 import com.hp.hpl.jena.datatypes.*;
+import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.shared.*;
 
 import java.io.*;
@@ -180,6 +181,9 @@ public interface Model
 	   @return a new resource linked to this model.
 	*/
 	public Resource createResource( String uri ) ;
+
+	// edit wvw
+	public Resource createResource(Node n) ;
 
 	/**
         Create a property with a given URI composed from a namespace part and a

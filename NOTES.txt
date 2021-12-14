@@ -1,3 +1,6 @@
+TODO
+log functor derivation for backward chainer
+
 renamed to .txt:
 it.polimi.dei.dbgroup.pedigree.androjena.xml.DOMTransformer;
 
@@ -5,6 +8,11 @@ commented out referring code in com.hp.hpl.jena.rdf.arp.DOM2Model
 
 added
 	 public static List<Rule> rulesFromStream( InputStream in )
-to com.hp.hpl.jena.reasoner.rulesys.Rule.java
+to 
+	com.hp.hpl.jena.reasoner.rulesys.Rule.java
 
-look for "// edit wvw"
+added com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem, ..IsUri, ..UriStr (not needed), ..LocalName, ..JoinLinkedStrings, .. SplitOnCase
+	in MakeSkolem, edited Base64 call (now java.util)
+
+
+in general, look for "// edit wvw"

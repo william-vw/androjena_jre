@@ -226,6 +226,9 @@ public interface ModelCon {
  */
     public Property createProperty(String uri) ;
     
+    // edit wvw
+    public Property createProperty(Node n) ;
+    
     /** create a literal from a String value.
      *
      * @param v the value of the literal
