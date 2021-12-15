@@ -450,7 +450,7 @@ public class FRuleEngine implements FRuleEngineI {
 			if (infGraph.shouldTrace()) {
 				logger.info("Fired rule: " + rule.toShortString() + " = " + rule.instantiate(env));
 			}
-			
+
 			List<RuleClauseMatch> matchList = null;
 			if (recordDerivations) {
 				// Create derivation record
@@ -459,12 +459,12 @@ public class FRuleEngine implements FRuleEngineI {
 					Object clause = rule.getBodyElement(i);
 					if (clause instanceof TriplePattern) {
 						matchList.add(new RuleTripleMatch(env.instantiate((TriplePattern) clause)));
-						
+
 					} else if (clause instanceof Functor) {
 						Functor functor = (Functor) clause;
 						String name = functor.getName();
 						Node[] args = functor.getBoundArgs(env);
-						
+
 						matchList.add(new RuleFunctorMatch(name, args));
 					}
 				}
@@ -479,9 +479,11 @@ public class FRuleEngine implements FRuleEngineI {
 						// that we can't record in RDF
 						if (!context.contains(t)) {
 							context.add(t);
-							if (recordDerivations) {
-								infGraph.logDerivation(t, new RuleDerivation(rule, t, matchList, infGraph));
-							}
+						}
+						// edit wvw (always record derivations; keep duplicate inferences with different
+						// derivation trees)
+						if (recordDerivations) {
+							infGraph.logDerivation(t, new RuleDerivation(rule, t, matchList, infGraph));
 						}
 					}
 				} else if (hClause instanceof Functor) {

@@ -1,18 +1,7 @@
-[trace1:
-	(?en pml:isConsequentOf ?gen) (?gen prov:qualifiedUsage ?us) (?us prov:entity ?en0)
-	(?en0 rdf:type pml:NodeSet)
+[E1:
+	(?en pml:isConsequentOf ?gen) (?gen prov:qualifiedUsage ?us) 
+	(?us prov:entity ?en0)
+	makeSkolem(?deriv ?gen xpl:derivation)
 ->
-	(?en xpl:via ?en0)
-]
-
-[trace2:
-	(?en xpl:via ?en0) (?en0 pml:isConsequentOf ?gen0) (?gen0 rdf:type pml:Derivation)
-->
-	(?en xpl:viaDerivation ?en0)
-]
-
-[trace3:
-	(?en xpl:via ?en0) (?en0 pml:isConsequentOf ?gen0) (?gen0 rdf:type pml:Assertion)
-->
-	(?en xpl:viaAssertion ?en0)
+	(?en xpl:derivation ?deriv) (?deriv xpl:via ?en0)
 ]

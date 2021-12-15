@@ -37,8 +37,10 @@ public class JenaExplainer {
 		Model model = ModelFactory.createDefaultModel();
 		// load data
 		model.read(assetMan.open("data/patient_prov.ttl"), "", "TURTLE");
+
 //		model.read(assetMan.open("out/sleep-apnea_a-b2.ttl"), "", "TURTLE");
-		model.read(assetMan.open("out/sleep-apnea_a-c.ttl"), "", "TURTLE");
+//		model.read(assetMan.open("out/sleep-apnea_a-c.ttl"), "", "TURTLE");
+		model.read(assetMan.open("out/sleep-apnea_all.ttl"), "", "TURTLE");
 
 		PrintUtil.registerPrefix("prov", NS.prov);
 		PrintUtil.registerPrefix("pml", NS.pml);
@@ -48,26 +50,38 @@ public class JenaExplainer {
 
 		// load & parse rules
 		List<Rule> rules = Rule.rulesFromStream(assetMan.open("data/select/epm.jena"));
+
 //		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/abstract.jena")));
 		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/trace.jena")));
-//		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/filter-none.jena")));
-		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/filter-static.jena")));
+////		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/filter-none.jena")));
+//		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/filter-static.jena")));
 		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/add-info.jena")));
-		rules.addAll(Rule.rulesFromStream(assetMan.open("data/gen/sentence.jena")));
+//		
+		rules.addAll(Rule.rulesFromStream(assetMan.open("data/gen/descr.jena")));
 
 		// create inf model
 		GenericRuleReasoner reasoner = new GenericRuleReasoner(rules);
 		reasoner.setMode(GenericRuleReasoner.FORWARD);
 
 		InfModel infModel = ModelFactory.createInfModel(reasoner, model);
-
 		infModel.add(infModel.createResource(""), infModel.createProperty(NS.uri("xpl:current")),
 				infModel.createResource(NS.uri("pml:nodeSet4")));
 //				infModel.createResource(NS.uri("pml:nodeSet6")));
 //				infModel.createResource(NS.uri("pml:nodeSet10")));
 
-		infModel.write(System.out, "TURTLE");
-//		infModel.getDeductionsModel().write(System.out, "TURTLE");
+		// create inf model (2)
+//		List<Rule> rules2 = Rule.rulesFromStream(assetMan.open("data/gen/sentence.jena"));
+
+		model.read(assetMan.open("data/res.ttl"), "", "TURTLE");
+		List<Rule> rules2 = Rule.rulesFromStream(assetMan.open("data/gen/graphic.jena"));
+
+		GenericRuleReasoner reasoner2 = new GenericRuleReasoner(rules2);
+		reasoner2.setMode(GenericRuleReasoner.FORWARD);
+
+		InfModel infModel2 = ModelFactory.createInfModel(reasoner2, infModel);
+
+		infModel2.write(System.out, "TURTLE");
+//		infModel2.getDeductionsModel().write(System.out, "TURTLE");
 	}
 
 	public InfModel dumpSleepApneaCase() throws Exception {

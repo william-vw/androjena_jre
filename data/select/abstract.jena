@@ -7,24 +7,21 @@
 #	(<> xpl:current [selection])
 
 [abstract1:
-	(<> xpl:current ?en)
-	makeSkolem(?out ?en xpl:Recommendation)
+	(<> xpl:current ?en) (?en xpl:derivation ?deriv)
 ->
-	(<> xpl:output ?out) (?out rdf:type xpl:Recommendation) 
-	(?out xpl:entity ?en) (?en xpl:inOutput ?out)
+	(<> xpl:output ?deriv) (?deriv rdf:type xpl:Recommendation)
 ]
 
-[abstract2:	
-	(<> xpl:current ?en0) (?en0 xpl:via ?en) 
-	makeSkolem(?out ?en xpl:Reason)
-->
-	(<> xpl:output ?out) (?out rdf:type xpl:Reason) 
-	(?out xpl:entity ?en) (?en xpl:inOutput ?out)
-]
+#[abstract2:	
+#	(<> xpl:current ?en0) (?en0 xpl:derivation ?deriv0) (?deriv0 xpl:via ?en) 
+#	(?en xpl:derivation ?deriv)
+#->
+#	(<> xpl:output ?deriv) (?deriv rdf:type xpl:Reason) 
+#]
 
 [abstract3:
-	(<> xpl:output ?out) (?out rdf:type xpl:Reason)
-	(?out xpl:entity ?en) (?en xpl:via ?en0)
+	(<> xpl:output ?deriv) (?deriv rdf:type xpl:Reason)
+	(?deriv xpl:via ?en1) (?en1 rdf:type pml:NodeSet)
 ->
-	(?out xpl:expandable "true"^^xsd:boolean)
+	(?deriv xpl:expandable "true"^^xsd:boolean)
 ]

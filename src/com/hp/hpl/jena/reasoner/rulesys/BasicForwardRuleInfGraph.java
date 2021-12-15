@@ -438,7 +438,9 @@ public class BasicForwardRuleInfGraph extends BaseInfGraph implements ForwardRul
      * Log a dervivation record against the given triple.
      */
     public void logDerivation(Triple t, Derivation derivation) {
-        derivations.put(t, derivation);
+    	// edit wvw
+    	if (!derivations.contains(t, derivation))
+    		derivations.put(t, derivation);
     }
     
     /**

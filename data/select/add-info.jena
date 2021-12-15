@@ -1,15 +1,17 @@
 [info1:	
-	(?out xpl:entity ?en) (?en pml:hasConclusion ?cl) 
-	(?cl prov:value ?stmt) (?stmt rdf:subject ?s) (?stmt rdf:predicate ?p) (?stmt rdf:object ?o)
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv) 
+	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt) 
+	(?stmt rdf:subject ?s) (?stmt rdf:predicate ?p) (?stmt rdf:object ?o)
 ->
-	(?out xpl:sourceSubject ?s) (?out xpl:sourceTerm ?s)
-	(?out xpl:sourcePredicate ?p) (?out xpl:sourceTerm ?p)
-	(?out xpl:sourceObject ?o) (?out xpl:sourceTerm ?o)
+	(?en xpl:sourceSubject ?s) (?en xpl:sourceTerm ?s)
+	(?en xpl:sourcePredicate ?p) (?en xpl:sourceTerm ?p)
+	(?en xpl:sourceObject ?o) (?en xpl:sourceTerm ?o)
 ]
 
 [info2:
-	(?out xpl:entity ?en) (?en pml:hasConclusion ?cl) 
-	(?cl prov:value ?stmt) (?stmt pml:functorArgs ?a) (?stmt pml:functorName ?n)
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv) 
+	(?en pml:hasConclusion ?cl) (?cl prov:value ?stmt)
+	(?stmt pml:functorArgs ?a) (?stmt pml:functorName ?n)
 ->
-	(?out xpl:sourceFunctorArgs ?a) (?out xpl:sourceFunctorName ?n)
+	(?en xpl:sourceFunctorArgs ?a) (?en xpl:sourceFunctorName ?n)
 ]

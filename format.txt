@@ -1,4 +1,25 @@
-get highest-level explanations:
+> config per use case
+
+- predicate of interest (e.g., hasDiagnosis, stratified)
+there can be plenty of level-0 inferences that are not of interest
+	i.e., not used to generate other derivations, but also not representing a conclusion 
+		(e.g., an intermediate inference that ended up leading nowhere)
+
+
+
+> multiple explanations for inferences of interest
+e.g., for COPD: any of a series of inferences may lead to stratification
+
+needed to adapt FRuleEngine to keep (different) derivations of already inferred triple
+and, update rules as well :-/
+
+
+> yes, a race condition
+need ability to set saliency of rules 
+(currently solved by applying "universal" rules in separate run)
+
+
+> get highest-level explanations:
 
 Yail templates + generators to fill in placeholders (?) + resources (?)
 	using rules: not requiring a re-compilation (e.g., enter online location)
@@ -92,20 +113,6 @@ what would it take not to have to exercise / eat this pizza?
 	.. different type of reasoning (?)
 	
 ---
-
-
->> generators
-	
-> graphical
-
-	# sort of resource-mapping
-	(<> tpl:output ?out) (?out tpl:verb ?p) (?out tpl:object ?o)
-	(<> tpl:resources ?r) (?r ?p ?r2) (?r2 ?o ?img)
-->
-	(?out tpl:img ?img)
-	
-	
---
 
 "code"
 

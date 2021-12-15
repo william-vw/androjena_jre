@@ -11,7 +11,7 @@ added
 to 
 	com.hp.hpl.jena.reasoner.rulesys.Rule.java
 
-added com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem, ..IsUri, ..UriStr (not needed), ..LocalName, ..JoinLinkedStrings, .. SplitOnCase
+added com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem, ..IsUri, ..UriStr (not needed), ..LocalName, ..JoinLinkedStrings, .. SplitOnCase, ..Trim
 	in MakeSkolem, edited Base64 call (now java.util)
 
 

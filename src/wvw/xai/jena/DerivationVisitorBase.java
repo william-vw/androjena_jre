@@ -30,13 +30,16 @@ public abstract class DerivationVisitorBase implements IDerivationVisitor {
 
 			Iterator<Derivation> derivIt = infModel.getDerivation(s);
 			if (derivIt != null) {
-				if (derivIt.hasNext()) {
+				while (derivIt.hasNext()) {
 
 					RuleDerivation deriv = (RuleDerivation) derivIt.next();
 					visit(deriv);
 
 					if (derivIt.hasNext())
-						System.out.println("WARNING skipping multiple derivations: " + s);
+						System.out.println("WARNING multiple derivations: " + s);
+					
+					// skip multiple derivations
+//					break;
 				}
 			}
 		}

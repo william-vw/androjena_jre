@@ -28,12 +28,12 @@
 	(?p sa:hasDiagnostic :DiagnosticC)
 ]
 
-#[R6:
-#	(?p sa:hasDiagnostic :DiagnosticA)
-#	(?p sa:hasDiagnostic :DiagnosticC)
-#->
-#	(?p sa:hasDiagnosis :SleepApnea)
-#]
+[R6:
+	(?p sa:hasDiagnostic :DiagnosticA)
+	(?p sa:hasDiagnostic :DiagnosticC)
+->
+	(?p sa:hasDiagnosis :SleepApnea)
+]
 
 #[R7:
 #	(?p sa:hasDiagnostic sa:DiagnosticA)

@@ -1,0 +1,544 @@
+<http://provenanceweb.org/ns/pml#info13>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              "6"^^<http://www.w3.org/2001/XMLSchema#int> ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        "6"^^<http://www.w3.org/2001/XMLSchema#int> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasNumberOfApneaSleepEvents> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] ;
+      <http://www.w3.org/ns/prov#wasGeneratedBy>
+              [ a       <http://niche.cs.dal.ca/xpl#DiaryEntryActivity> , <http://niche.cs.dal.ca/xpl#EntryActivity> ;
+                <http://www.w3.org/ns/prov#endedAtTime>
+                        "2021-12-14T11:57:31Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+              ] .
+
+<http://provenanceweb.org/ns/pml#R3>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://provenanceweb.org/ns/pml#R7.1>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://jena.apache.org>
+      a       <http://provenanceweb.org/ns/pml#InferenceEngine> .
+
+<http://provenanceweb.org/ns/pml#nodeSet4>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info5> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R7.2>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet6> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet20> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet0> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R6>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet6> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet10> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R7.1>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet16> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet0> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet6> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R7.3>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet20> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet6> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet16> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] .
+
+<http://provenanceweb.org/ns/pml#R4>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://provenanceweb.org/ns/pml#nodeSet14>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info15> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Assertion> ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Source>
+                        ]
+              ] .
+
+<http://provenanceweb.org/ns/pml#info1>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#DiagnosticB1> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasDiagnostic> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] .
+
+<http://provenanceweb.org/ns/pml#info19>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasRecurrentAwakeningsFromSleep> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] ;
+      <http://www.w3.org/ns/prov#wasGeneratedBy>
+              [ a       <http://niche.cs.dal.ca/xpl#DiaryEntryActivity> , <http://niche.cs.dal.ca/xpl#EntryActivity> ;
+                <http://www.w3.org/ns/prov#endedAtTime>
+                        "2021-12-14T11:57:31Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+              ] .
+
+<http://provenanceweb.org/ns/pml#info9>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasExcessiveDaytimeSleepiness> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] ;
+      <http://www.w3.org/ns/prov#wasGeneratedBy>
+              [ a       <http://niche.cs.dal.ca/xpl#DiaryEntryActivity> , <http://niche.cs.dal.ca/xpl#EntryActivity> ;
+                <http://www.w3.org/ns/prov#endedAtTime>
+                        "2021-12-14T11:57:31Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+              ] .
+
+<http://provenanceweb.org/ns/pml#info11>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#DiagnosticC> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasDiagnostic> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] .
+
+<http://provenanceweb.org/ns/pml#info23>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasUnrefreshingSleep> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] ;
+      <http://www.w3.org/ns/prov#wasGeneratedBy>
+              [ a       <http://niche.cs.dal.ca/xpl#DiaryEntryActivity> , <http://niche.cs.dal.ca/xpl#EntryActivity> ;
+                <http://www.w3.org/ns/prov#endedAtTime>
+                        "2021-12-14T11:57:31Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+              ] .
+
+<http://provenanceweb.org/ns/pml#R5>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://provenanceweb.org/ns/pml#nodeSet12>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info13> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Assertion> ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Source>
+                        ]
+              ] .
+
+<http://provenanceweb.org/ns/pml#nodeSet2>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info3> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Assertion> ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Source>
+                        ]
+              ] .
+
+<http://provenanceweb.org/ns/pml#R6>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://provenanceweb.org/ns/pml#info7>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#DiagnosticA> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasDiagnostic> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] .
+
+<http://provenanceweb.org/ns/pml#info17>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#DiagnosticB2> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasDiagnostic> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] .
+
+<http://provenanceweb.org/ns/pml#nodeSet18>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info19> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Assertion> ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Source>
+                        ]
+              ] .
+
+<http://provenanceweb.org/ns/pml#info21>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#DiagnosticB3> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasDiagnostic> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] .
+
+<http://provenanceweb.org/ns/pml#nodeSet8>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info9> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Assertion> ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Source>
+                        ]
+              ] .
+
+<http://provenanceweb.org/ns/pml#nodeSet10>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info11> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R5>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet12> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet14> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] .
+
+<http://provenanceweb.org/ns/pml#nodeSet22>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info23> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Assertion> ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Source>
+                        ]
+              ] .
+
+<http://provenanceweb.org/ns/pml#nodeSet0>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info1> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R2>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet2> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] .
+
+<http://provenanceweb.org/ns/pml#info5>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#SleepApnea> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasDiagnosis> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] .
+
+<http://provenanceweb.org/ns/pml#info15>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "functor" ;
+      <http://www.w3.org/ns/prov#value>
+              [ <http://provenanceweb.org/ns/pml#functorArgs>
+                        ("6"^^<http://www.w3.org/2001/XMLSchema#int> "5"^^<http://www.w3.org/2001/XMLSchema#int>) ;
+                <http://provenanceweb.org/ns/pml#functorName>
+                        "ge"
+              ] .
+
+<http://provenanceweb.org/ns/pml#R1>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://provenanceweb.org/ns/pml#R7.3>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://provenanceweb.org/ns/pml#R2>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://provenanceweb.org/ns/pml#nodeSet6>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info7> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R1>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet8> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] .
+
+<http://provenanceweb.org/ns/pml#nodeSet20>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info21> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R4>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet22> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] .
+
+<http://provenanceweb.org/ns/pml#R7.2>
+      a       <http://provenanceweb.org/ns/pml#Rule> .
+
+<http://provenanceweb.org/ns/pml#nodeSet16>
+      a       <http://provenanceweb.org/ns/pml#NodeSet> ;
+      <http://provenanceweb.org/ns/pml#hasConclusion>
+              <http://provenanceweb.org/ns/pml#info17> ;
+      <http://provenanceweb.org/ns/pml#isConsequentOf>
+              [ a       <http://provenanceweb.org/ns/pml#Derivation> ;
+                <http://www.w3.org/ns/prov#qualifiedAssociation>
+                        [ <http://www.w3.org/ns/prov#agent>
+                                  <http://jena.apache.org> ;
+                          <http://www.w3.org/ns/prov#hadPlan>
+                                  <http://provenanceweb.org/ns/pml#R3>
+                        ] ;
+                <http://www.w3.org/ns/prov#qualifiedUsage>
+                        [ <http://www.w3.org/ns/prov#entity>
+                                  <http://provenanceweb.org/ns/pml#nodeSet18> ;
+                          <http://www.w3.org/ns/prov#hadRole>
+                                  <http://provenanceweb.org/ns/pml#Antecedent>
+                        ] ;
+                <http://www.w3.org/ns/prov#wasAssociatedWith>
+                        <http://jena.apache.org>
+              ] .
+
+<http://provenanceweb.org/ns/pml#info3>
+      a       <http://provenanceweb.org/ns/pml#Information> ;
+      <http://purl.org/dc/terms/format>
+              "RDF" ;
+      <http://www.w3.org/ns/prov#value>
+              "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+      <http://www.w3.org/ns/prov#value>
+              [ a       <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+                        "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#hasChokingOrGaspingDuringSleep> ;
+                <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+                        <http://niche.cs.dal.ca/ns/sleep_apnea.owl#patientA>
+              ] ;
+      <http://www.w3.org/ns/prov#wasGeneratedBy>
+              [ a       <http://niche.cs.dal.ca/xpl#DiaryEntryActivity> , <http://niche.cs.dal.ca/xpl#EntryActivity> ;
+                <http://www.w3.org/ns/prov#endedAtTime>
+                        "2021-12-14T11:57:31Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+              ] .

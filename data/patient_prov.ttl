@@ -50,5 +50,5 @@
 xpl:DiaryEntryActivity rdfs:subClassOf xpl:EntryActivity .
 xpl:EntryActivity rdfs:subClassOf prov:Activity . 
 
-:hasDiagnostic rdfs:label "has" .
+:hasDiagnostic rdfs:label "" .
 :hasNumberOfApneaSleepEvents rdfs:label "apnea sleep events" .

@@ -2,8 +2,10 @@ package wvw.xai.jena;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.Triple;
@@ -33,6 +35,8 @@ public class DerivationPmlPrinter extends DerivationVisitorBase {
 
 	private JenaKb pml;
 
+	private Map<Triple, Resource> nodeSetMap = new HashMap<>();
+
 	public DerivationPmlPrinter(String dataUri, String rulesUri, boolean includesProv) {
 		this.dataUri = dataUri;
 		this.rulesUri = rulesUri;
@@ -57,22 +61,31 @@ public class DerivationPmlPrinter extends DerivationVisitorBase {
 		// - NodeSet
 		// (unfortunately, pml:NodeSet is not listed in pml-3.0.ttl,
 		// although it is mentioned in the comments)
-		Resource nodeSet = pml.resource("pml:nodeSet" + cnt++, pml.resource("pml:NodeSet")); // (prov:Entity)
 
-		// -- conclusion
+		Resource nodeSet = null;
+
 		Triple conclusion = deriv.getConclusion();
+		if (nodeSetMap.containsKey(conclusion))
+			nodeSet = nodeSetMap.get(conclusion);
+		
+		else {
+			nodeSet = pml.resource("pml:nodeSet" + cnt++, pml.resource("pml:NodeSet")); // (prov:Entity)
+			nodeSetMap.put(conclusion, nodeSet);
+			
+			// -- conclusion
 
-		Resource info = reifiedTripleInfo(conclusion, false);
-		// TODO should not be a sub-property of prov:generated
-		// (entity generating an entity)
-		pml.add(nodeSet, pml.property("pml:hasConclusion"), info);
+			Resource info = reifiedTripleInfo(conclusion, false);
+			// TODO should not be a sub-property of prov:generated
+			// (entity generating an entity)
+			pml.add(nodeSet, pml.property("pml:hasConclusion"), info);
+		}
 
 		// - InferenceStep
 
 		Resource infStep = pml.blankNode(pml.resource("pml:Derivation")); // pml:InferenceStep, prov:Activity
 		pml.add(nodeSet, pml.property("pml:isConsequentOf"), infStep); // prov:wasGeneratedBy
 
-		sourceOfActivity(infStep, rulesUri);
+//		sourceOfActivity(infStep, rulesUri);
 
 		// -- engine
 		Resource engine = pml.resourceFromUri("http://jena.apache.org", pml.resource("pml:InferenceEngine"));

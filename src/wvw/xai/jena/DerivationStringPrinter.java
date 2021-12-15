@@ -73,13 +73,13 @@ public class DerivationStringPrinter extends DerivationVisitorBase {
 				} else {
 					while (derivations.hasNext()) {
 						RuleDerivation deriv2 = (RuleDerivation) derivations.next();
-						if (derivLog.containsKey(deriv2)) {
-							PrintUtil.printIndent(out, indent);
-							out.println("Known " + PrintUtil.print(match) + " - already shown");
-						} else {
-							derivLog.put(deriv2, null);
-							visit(deriv2);
-						}
+//						if (derivLog.containsKey(deriv2)) {
+//							PrintUtil.printIndent(out, indent);
+//							out.println("Known " + PrintUtil.print(match) + " - already shown");
+//						} else {
+//							derivLog.put(deriv2, null);
+						visit(deriv2);
+//						}
 					}
 				}
 

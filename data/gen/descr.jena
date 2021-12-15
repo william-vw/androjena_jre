@@ -1,0 +1,73 @@
+[D1:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceObject ?o) isUri(?o) (?o xpl:string ?os)
+	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps)
+	strConcat (?ps ' ' ?os ?descr) trim(?descr ?descr2)
+->
+	(?deriv xpl:description ?descr2)
+]
+
+[D2:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceObject ?o) isDType(?o xsd:string)
+	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps)
+	strConcat (?ps ' ' ?o ?descr) trim(?descr ?descr2)
+->
+	(?deriv xpl:description ?descr2)
+]
+
+[D3:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceObject ?o) isDType(?o xsd:integer)
+	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps)
+	strConcat (?o ' ' ?ps ?descr) trim(?descr ?descr2)
+->
+	(?deriv xpl:description ?descr2)
+]
+
+[D4:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceObject "true"^^xsd:boolean)
+	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps)
+->
+	(?deriv xpl:description ?ps)
+]
+
+[D5:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceObject "false"^^xsd:boolean)
+	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps)
+	strConcat("no " ?ps ?descr)
+->
+	(?deriv xpl:description ?descr)
+]
+
+[D6:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceFunctorName ?x)
+->
+	(?deriv xpl:description '')
+]
+
+[D7:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceTerm ?t) isUri(?t) noValue(?t rdf:type xpl:Subject) (?t rdfs:label ?str)
+->
+	(?t xpl:string ?str)
+]
+
+[D8:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceTerm ?t) isUri(?t) noValue(?t rdf:type xpl:Subject) noValue(?t rdfs:label ?x) localName(?t ?str)
+	splitOnCase(?str ' ' ?str2)
+	replaceAll("has " '' ?str2 ?str3)
+->
+	(?t xpl:string ?str3)
+]
+
+[D9:
+	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
+	(?en xpl:sourceSubject ?t) isUri(?t) (?t rdf:type xpl:Subject)
+->
+	(?t xpl:string "You")
+]

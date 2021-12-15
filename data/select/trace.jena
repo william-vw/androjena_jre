@@ -1,15 +1,12 @@
 [trace1:
-	(<> xpl:current ?en)
-	makeSkolem(?out ?en xpl:Recommendation)
+	(<> xpl:current ?en) (?en xpl:derivation ?deriv)
 ->
-	(<> xpl:output ?out) (?out rdf:type xpl:Recommendation) 
-	(?out xpl:entity ?en) (?en xpl:inOutput ?out)
+	(<> xpl:output ?deriv) (?deriv rdf:type xpl:Recommendation) 
 ]
 
-[trace2:	
-	(?out0 xpl:entity ?en0) (?en0 xpl:via ?en) 
-	makeSkolem(?out ?en xpl:Reason)
+[trace2:
+	(<> xpl:output ?deriv0) (?deriv0 xpl:via ?en)
+	(?en xpl:derivation ?deriv)
 ->
-	(<> xpl:output ?out) (?out rdf:type xpl:Reason) 
-	(?out xpl:entity ?en) (?en xpl:inOutput ?out)
+	(<> xpl:output ?deriv) (?deriv rdf:type xpl:Reason)
 ]
