@@ -1,26 +1,11 @@
 package wvw.xai.jena;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.List;
-
-import com.hp.hpl.jena.rdf.model.InfModel;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
-import com.hp.hpl.jena.reasoner.Derivation;
-import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
-import com.hp.hpl.jena.reasoner.rulesys.Rule;
-import com.hp.hpl.jena.util.PrintUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 import wvw.utils.jena.JenaKb;
 import wvw.utils.jena.NS;
+import wvw.xai.jena.print.DerivationPmlPrinter;
 
 public class JenaExplainer {
 
@@ -28,136 +13,100 @@ public class JenaExplainer {
 		JenaExplainer exp = new JenaExplainer();
 
 //		exp.dumpSleepApneaCase();
-		exp.testExplain();
+//		exp.dumpCopdCase();
+
+//		exp.explainSleepApneaCase();
+//		exp.explainCopdCase("data/cases/copd/patient_prov.ttl", "out/copd_yellow.ttl", "pml:nodeSet20");
+		exp.explainCopdCase("data/cases/copd/patient2_prov.ttl", "out/copd_yellow-red1.ttl", "pml:nodeSet0");
 	}
 
-	public void testExplain() throws Exception {
-		AssetManager assetMan = getAssets();
-
-		Model model = ModelFactory.createDefaultModel();
-		// load data
-		model.read(assetMan.open("data/patient_prov.ttl"), "", "TURTLE");
-
-//		model.read(assetMan.open("out/sleep-apnea_a-b2.ttl"), "", "TURTLE");
-//		model.read(assetMan.open("out/sleep-apnea_a-c.ttl"), "", "TURTLE");
-		model.read(assetMan.open("out/sleep-apnea_all.ttl"), "", "TURTLE");
-
-		PrintUtil.registerPrefix("prov", NS.prov);
-		PrintUtil.registerPrefix("pml", NS.pml);
-		PrintUtil.registerPrefix("xpl", NS.xpl);
-		PrintUtil.registerPrefix("sa", NS.sa);
-		PrintUtil.registerPrefix("", NS.sa);
-
-		// load & parse rules
-		List<Rule> rules = Rule.rulesFromStream(assetMan.open("data/select/epm.jena"));
-
-//		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/abstract.jena")));
-		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/trace.jena")));
-////		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/filter-none.jena")));
-//		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/filter-static.jena")));
-		rules.addAll(Rule.rulesFromStream(assetMan.open("data/select/add-info.jena")));
-//		
-		rules.addAll(Rule.rulesFromStream(assetMan.open("data/gen/descr.jena")));
-
-		// create inf model
-		GenericRuleReasoner reasoner = new GenericRuleReasoner(rules);
-		reasoner.setMode(GenericRuleReasoner.FORWARD);
-
-		InfModel infModel = ModelFactory.createInfModel(reasoner, model);
-		infModel.add(infModel.createResource(""), infModel.createProperty(NS.uri("xpl:current")),
-				infModel.createResource(NS.uri("pml:nodeSet4")));
-//				infModel.createResource(NS.uri("pml:nodeSet6")));
-//				infModel.createResource(NS.uri("pml:nodeSet10")));
-
-		// create inf model (2)
-//		List<Rule> rules2 = Rule.rulesFromStream(assetMan.open("data/gen/sentence.jena"));
-
-		model.read(assetMan.open("data/res.ttl"), "", "TURTLE");
-		List<Rule> rules2 = Rule.rulesFromStream(assetMan.open("data/gen/graphic.jena"));
-
-		GenericRuleReasoner reasoner2 = new GenericRuleReasoner(rules2);
-		reasoner2.setMode(GenericRuleReasoner.FORWARD);
-
-		InfModel infModel2 = ModelFactory.createInfModel(reasoner2, infModel);
-
-		infModel2.write(System.out, "TURTLE");
-//		infModel2.getDeductionsModel().write(System.out, "TURTLE");
-	}
-
-	public InfModel dumpSleepApneaCase() throws Exception {
-		AssetManager assetMan = getAssets();
-
-		Model model = ModelFactory.createDefaultModel();
-
-		// load data
-		model.read(assetMan.open("data/patient_prov.ttl"), "", "TURTLE");
-		model.read(assetMan.open("data/sleep-apnea.ttl"), "", "TURTLE");
-
-		PrintUtil.registerPrefix("prov", NS.prov);
-		PrintUtil.registerPrefix("sa", "http://niche.cs.dal.ca/ns/sleep_apnea.owl#");
-		PrintUtil.registerPrefix("", "http://niche.cs.dal.ca/ns/sleep_apnea.owl#");
-
-		// load & parse rules
-		List<Rule> rules = Rule.rulesFromStream(assetMan.open("data/sleep-apnea_prov.jena"));
-
-		// create inf model
-		GenericRuleReasoner reasoner = new GenericRuleReasoner(rules);
-		reasoner.setMode(GenericRuleReasoner.FORWARD);
-
-		InfModel infModel = ModelFactory.createInfModel(reasoner, model);
-		infModel.setDerivationLogging(true);
-
-//		infModel.write(System.out, "TURTLE");
-//		infModel.getDeductionsModel().write(System.out, "TURTLE");
-
-		// - print derivations as strings
-		// (should be same as testOriginal)
-
+	public void dumpSleepApneaCase() throws Exception {
 //		DerivationStringPrinter printer = new DerivationStringPrinter(new PrintWriter(System.out), true);
-//		printer.visit(infModel);
+		DerivationPmlPrinter printer = new DerivationPmlPrinter("http://niche.cs.dal.ca/ns/sleep_apnea.owl#",
+				"http://niche.cs.dal.ca/ns/sleep_apnea.jena#", true);
 
-		// - print derivations using PML
+		Map<String, String> prefixNs = new HashMap<>() {
+			private static final long serialVersionUID = 1L;
+			{
+				put("prov", NS.prov);
+				put("sa", NS.sa);
+				put("", NS.sa);
+			}
+		};
 
-		String dataUri = "http://niche.cs.dal.ca/ns/sleep_apnea.owl#";
-		String rulesUri = "http://niche.cs.dal.ca/ns/sleep_apnea.jena#";
-
-		DerivationPmlPrinter printer = new DerivationPmlPrinter(dataUri, rulesUri, true);
-		printer.visit(infModel);
+		DumpUseCaseDerivations.dump(printer, prefixNs, "data/cases/sleep-apnea/rules_prov.jena",
+				"data/cases/sleep-apnea/data.ttl", "data/cases/sleep-apnea/patient_prov.ttl");
 
 		JenaKb pml = printer.getPml();
 		pml.printAll("N3");
-
-		// - print derivations using Derivation#printTrace
-//		testOriginal(infModel);
-
-		return infModel;
 	}
 
-	public void testOriginal(InfModel infModel) {
-		PrintWriter out = new PrintWriter(System.out);
-		for (StmtIterator i = infModel.listStatements(null, null, (RDFNode) null); i.hasNext();) {
-			Statement s = i.nextStatement();
-//			System.out.println(s);
+	public void dumpCopdCase() throws Exception {
+//		DerivationStringPrinter printer = new DerivationStringPrinter(new PrintWriter(System.out), true);
+		DerivationPmlPrinter printer = new DerivationPmlPrinter("http://niche.cs.dal.ca/ns/copd.owl#",
+				"http://niche.cs.dal.ca/ns/copd.jena#", true);
 
-			Iterator<Derivation> it = infModel.getDerivation(s);
-			if (it != null) {
-				while (it.hasNext()) {
-					Derivation deriv = it.next();
-					deriv.printTrace(out, true);
-				}
+		Map<String, String> prefixNs = new HashMap<>() {
+			private static final long serialVersionUID = 1L;
+			{
+				put("prov", NS.prov);
+				put("copd", NS.copd);
+				put("", NS.copd);
 			}
-		}
-		out.flush();
+		};
+
+		DumpUseCaseDerivations.dump(printer, prefixNs, "data/cases/copd/rules_prov.jena",
+				"data/cases/copd/patient2_prov.ttl");
+
+		JenaKb pml = printer.getPml();
+		pml.printAll("N3");
 	}
 
-	public AssetManager getAssets() {
-		return new AssetManager();
+	public void explainSleepApneaCase(String patientPath, String derivPath, String curNodeSet) throws Exception {
+		Map<String, String> prefixNs = new HashMap<>() {
+			private static final long serialVersionUID = 1L;
+			{
+				put("prov", NS.prov);
+				put("pml", NS.pml);
+				put("xpl", NS.xpl);
+				put("sa", NS.sa);
+				put("", NS.sa);
+			}
+		};
+
+		String[] dataPaths = { "data/cases/sleep-apnea/data.ttl", "data/cases/sleep-apnea/res.ttl", patientPath,
+				derivPath };
+
+		String[] selectPaths = { "data/select/epm.jena", "data/select/trace.jena", "data/select/add-info.jena",
+				"data/gen/descr.jena" };
+
+		String[] genPaths = { "data/gen/sentence.jena" };
+
+		ExplainUseCaseDerivations.explain(prefixNs, dataPaths, selectPaths, genPaths, curNodeSet);
 	}
 
-	protected static class AssetManager {
+	public void explainCopdCase(String patientPath, String derivPath, String curNodeSet) throws Exception {
+		Map<String, String> prefixNs = new HashMap<>() {
+			private static final long serialVersionUID = 1L;
+			{
+				put("prov", NS.prov);
+				put("pml", NS.pml);
+				put("xpl", NS.xpl);
+				put("copd", NS.copd);
+				put("", NS.copd);
+			}
+		};
 
-		public InputStream open(String path) throws IOException {
-			return new FileInputStream(Paths.get(path).toFile());
-		}
+		String[] dataPaths = { "data/cases/copd/data.ttl", patientPath, derivPath
+//			, "data/cases/copd/res.ttl" 
+		};
+
+		String[] selectPaths = { "data/select/epm.jena", "data/select/trace.jena", "data/select/add-info.jena",
+				"data/gen/descr.jena" };
+
+		String[] genPaths = { "data/gen/sentence.jena" };
+
+		ExplainUseCaseDerivations.explain(prefixNs, dataPaths, selectPaths, genPaths, curNodeSet);
 	}
+
 }

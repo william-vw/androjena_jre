@@ -1,0 +1,17 @@
+derivation
+	via
+
+nodeSet0 
+	hasConclusion
+		prov:value	
+			rdf:subject, ..
+
+	derivation - recomm
+		nodeSet1
+		nodeSet2
+	derivation - recomm
+		nodeSet3
+		nodeSet4 - reason
+			derivation
+				nodeSet5
+				nodeSet6

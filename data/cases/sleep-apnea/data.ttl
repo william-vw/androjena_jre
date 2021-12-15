@@ -1,0 +1,17 @@
+@prefix : <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pml: <http://provenanceweb.org/ns/pml#> . 
+@prefix xpl: <http://niche.cs.dal.ca/xpl#> .
+
+xpl:DiaryEntryActivity rdfs:subClassOf xpl:EntryActivity .
+xpl:EntryActivity rdfs:subClassOf prov:Activity . 
+
+#:DiagnosticB1 a :DiagnosticTypeB .
+#:DiagnosticB2 a :DiagnosticTypeB .
+#:DiagnosticB3 a :DiagnosticTypeB .
+
+:hasDiagnosis rdfs:label "are diagnosed with" .
+:hasDiagnostic rdfs:label "has" .
+:hasNumberOfApneaSleepEvents rdfs:label "had %s apnea sleep events" .

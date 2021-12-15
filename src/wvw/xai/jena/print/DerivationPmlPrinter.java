@@ -1,4 +1,4 @@
-package wvw.xai.jena;
+package wvw.xai.jena.print;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,14 +28,14 @@ import wvw.utils.jena.NS;
 
 public class DerivationPmlPrinter extends DerivationVisitorBase {
 
-	private String dataUri;
-	private String rulesUri;
-	private int cnt = 0;
-	private boolean includesProv;
+	protected String dataUri;
+	protected String rulesUri;
+	protected int cnt = 0;
+	protected boolean includesProv;
 
-	private JenaKb pml;
+	protected JenaKb pml;
 
-	private Map<Triple, Resource> nodeSetMap = new HashMap<>();
+	protected Map<Triple, Resource> nodeSetMap = new HashMap<>();
 
 	public DerivationPmlPrinter(String dataUri, String rulesUri, boolean includesProv) {
 		this.dataUri = dataUri;

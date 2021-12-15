@@ -1,5 +1,0 @@
-@prefix : <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> .
-
-:DiagnosticB1 a :DiagnosticTypeB .
-:DiagnosticB2 a :DiagnosticTypeB .
-:DiagnosticB3 a :DiagnosticTypeB .

@@ -1,4 +1,4 @@
-package wvw.xai.jena;
+package wvw.xai.jena.print;
 
 import java.io.PrintWriter;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-@prefix : <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> .
+@prefix : <http://niche.cs.dal.ca/ns/copd.owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
@@ -6,49 +6,51 @@
 @prefix xpl: <http://niche.cs.dal.ca/xpl#> .
 
 :patientA a xpl:Subject ;
-	:hasExcessiveDaytimeSleepiness [
-		prov:value "true"^^xsd:boolean ;
-			
+	:hasPhlemAmountValue [
+		prov:value 7 ;
+	
 		prov:wasGeneratedBy [
 			a xpl:DiaryEntryActivity , xpl:EntryActivity ;
 			prov:endedAtTime "2021-12-14T11:57:31Z"^^xsd:dateTime ;
 		]
 	] ;
-	:hasChokingOrGaspingDuringSleep [
-		prov:value "true"^^xsd:boolean ;
-			
+	:hasColoredPhlem [
+		prov:value true ;
+	
 		prov:wasGeneratedBy [
 			a xpl:DiaryEntryActivity , xpl:EntryActivity ;
 			prov:endedAtTime "2021-12-14T11:57:31Z"^^xsd:dateTime ;
 		]
 	] ;
-	:hasRecurrentAwakeningsFromSleep [
-		prov:value "true"^^xsd:boolean ;
-			
+	:hasActivityExertionValue [
+		prov:value 7 ;
+	
 		prov:wasGeneratedBy [
 			a xpl:DiaryEntryActivity , xpl:EntryActivity ;
 			prov:endedAtTime "2021-12-14T11:57:31Z"^^xsd:dateTime ;
 		]
 	] ;
-	:hasUnrefreshingSleep [
-		prov:value "true"^^xsd:boolean ;
-			
+	:hasCoughValue [
+		prov:value 7 ;
+	
 		prov:wasGeneratedBy [
 			a xpl:DiaryEntryActivity , xpl:EntryActivity ;
 			prov:endedAtTime "2021-12-14T11:57:31Z"^^xsd:dateTime ;
 		]
 	] ;
-	:hasNumberOfApneaSleepEvents [
-		prov:value "6"^^xsd:int ;
-			
+	:has02SaturationValue [
+		prov:value 86 ;
+	
+		prov:wasGeneratedBy [
+			a xpl:DiaryEntryActivity , xpl:EntryActivity ;
+			prov:endedAtTime "2021-12-14T11:57:31Z"^^xsd:dateTime ;
+		]
+	] ;
+	:hasFeverValue [
+		prov:value 38 ;
+	
 		prov:wasGeneratedBy [
 			a xpl:DiaryEntryActivity , xpl:EntryActivity ;
 			prov:endedAtTime "2021-12-14T11:57:31Z"^^xsd:dateTime ;
 		]
 	] .
-
-xpl:DiaryEntryActivity rdfs:subClassOf xpl:EntryActivity .
-xpl:EntryActivity rdfs:subClassOf prov:Activity . 
-
-:hasDiagnostic rdfs:label "" .
-:hasNumberOfApneaSleepEvents rdfs:label "apnea sleep events" .

@@ -1,0 +1,119 @@
+[Y1:
+	(?p :hasPhlemAmount :Moderate)
+->
+	(?p :isStratified :YellowZone)
+]
+
+[Y2:
+	(?p :hasColoredPhlem "true"^^xsd:boolean)
+->
+	(?p :isStratified :YellowZone)
+]
+
+[Y3:
+	(?p :hasSwollenAnkle "true"^^xsd:boolean)
+->
+	(?p :isStratified :YellowZone)
+]
+
+[Y4:
+	(?p :hasActivityExertion :Moderate)
+->
+	(?p :isStratified :YellowZone)
+]
+
+[R1:
+	(?p :hasCyanosis "true"^^xsd:boolean)
+->
+	(?p :isStratified :RedZone)
+]
+
+[R2:
+	(?p :hasChestPain "true"^^xsd:boolean)
+->
+	(?p :isStratified :RedZone)
+]
+
+[R3:
+	(?p :hasActivityExertion :Severe)
+->
+	(?p :isStratified :RedZone)
+]
+
+[R4:
+	(?p :hasCough :Severe)
+->
+	(?p :isStratified :RedZone)
+]
+
+[R5:
+	(?p :hasLow02Saturation "true"^^xsd:boolean)
+->
+	(?p :isStratified :RedZone)
+]
+
+[R6:
+	(?p :hasFever :Severe)
+->
+	(?p :isStratified :RedZone)
+]
+
+[R7:
+	(?p :hasConfusion "true"^^xsd:boolean)
+->
+	(?p :isStratified :RedZone)
+]
+
+[S1:
+	(?p :hasPhlemAmountValue ?v) greaterThan(?v 5) lessThan(?v 8)
+->
+	(?p :hasPhlemAmount :Moderate)
+]
+
+[S2:
+	(?p :hasPhlemAmountValue ?v) ge(?v 8)
+->
+	(?p :hasPhlemAmount :Severe)
+]
+
+[S3:
+	(?p :hasActivityExertionValue ?v) greaterThan(?v 5) lessThan(?v 8)
+->
+	(?p :hasActivityExertion :Moderate)
+]
+
+[S4:
+	(?p :hasActivityExertionValue ?v) ge(?v 8)
+->
+	(?p :hasActivityExertion :Severe)
+]
+
+[S5:
+	(?p :hasCoughValue ?v) greaterThan(?v 5) lessThan(?v 8)
+->
+	(?p :hasCough :Moderate)
+]
+
+[S6:
+	(?p :hasCoughValue ?v) ge(?v 8)
+->
+	(?p :hasCough :Severe)
+]
+
+[S7:
+	(?p :has02SaturationValue ?v) lessThan(?v 88)
+->
+	(?p :hasLow02Saturation "true"^^xsd:boolean)
+]
+
+[S8:
+	(?p :hasFeverValue ?v) greaterThan(?v 37) lessThan(?v 39.5)
+->
+	(?p :hasFever :Moderate)
+]
+
+[S9:
+	(?p :hasFeverValue ?v) ge(?v 39.5)
+->
+	(?p :hasFever :Severe)
+]

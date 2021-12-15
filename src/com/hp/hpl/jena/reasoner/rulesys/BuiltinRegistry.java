@@ -44,6 +44,7 @@ import com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.MakeTemp;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.Max;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.Min;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.NoMatch;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.NoValue;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.NotBNode;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.NotDType;
@@ -154,6 +155,7 @@ public class BuiltinRegistry {
 		theRegistry.register(new SplitOnCase());
 		theRegistry.register(new ReplaceAll());
 		theRegistry.register(new Trim());
+		theRegistry.register(new NoMatch());
 	}
 
 	/**

@@ -1,24 +1,3 @@
-> config per use case
-
-- predicate of interest (e.g., hasDiagnosis, stratified)
-there can be plenty of level-0 inferences that are not of interest
-	i.e., not used to generate other derivations, but also not representing a conclusion 
-		(e.g., an intermediate inference that ended up leading nowhere)
-
-
-
-> multiple explanations for inferences of interest
-e.g., for COPD: any of a series of inferences may lead to stratification
-
-needed to adapt FRuleEngine to keep (different) derivations of already inferred triple
-and, update rules as well :-/
-
-
-> yes, a race condition
-need ability to set saliency of rules 
-(currently solved by applying "universal" rules in separate run)
-
-
 > get highest-level explanations:
 
 Yail templates + generators to fill in placeholders (?) + resources (?)

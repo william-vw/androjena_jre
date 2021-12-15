@@ -1,8 +1,16 @@
 [S1:
 	(<> xpl:output ?deriv) (?deriv xpl:description ?descr)
-	strConcat("You have " ?descr " because you have " ?descr2)
+	strConcat("You " ?descr " because you " ?descr2)
 	joinLinkedStrings(?deriv ", " ", and " " and " xpl:via xpl:derivation xpl:description ?descr3)
 	strConcat(?descr2 ?descr3 '.' ?sentence)
+	
+	# deal with hasX properties
+	replaceAll("ou has" "ou have" ?sentence ?sentence2)
+	replaceAll("(,|and) has" "$1" ?sentence2 ?sentence3)
+	
+	# deal with isX properties
+	replaceAll("ou is" "ou are" ?sentence3 ?sentence4)
+	
 ->
-	(?deriv xpl:sentence ?sentence)
+	(?deriv xpl:sentence ?sentence4)
 ]

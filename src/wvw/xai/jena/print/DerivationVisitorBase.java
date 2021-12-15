@@ -1,4 +1,4 @@
-package wvw.xai.jena;
+package wvw.xai.jena.print;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,7 +36,7 @@ public abstract class DerivationVisitorBase implements IDerivationVisitor {
 					visit(deriv);
 
 					if (derivIt.hasNext())
-						System.out.println("WARNING multiple derivations: " + s);
+						System.out.println("INFO multiple derivations: " + s);
 					
 					// skip multiple derivations
 //					break;

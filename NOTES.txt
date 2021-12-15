@@ -1,5 +1,49 @@
-TODO
+-- TODO
+
+test COPD case more extensively
+
+special case for "stratification" cases - only show "worst" zone
+	requires ordering for zones ..
+	
+for builtin comparisons, need to "expand" to short description of builtin comparisons
+	(not needed for direct uri matches, boolean matches ..)
+
+improve "template" for individual properties - apply the same one for sets of properties
+	(e.g., see cases/copd/data.ttl)
+
 log functor derivation for backward chainer
+
+
+
+-- NOTES
+
+> in general, rules need to be very verbosely stated
+cannot take shortcuts (e.g., any symptom on 1-10 scale; need to elaborate rules per symptom)
+could somehow auto-generate these verbose rules
+
+
+> config per use case
+
+- predicate of interest (e.g., hasDiagnosis, stratified)
+there can be plenty of level-0 inferences that are not of interest
+	i.e., not used to generate other derivations, but also not representing a conclusion 
+		(e.g., an intermediate inference that ended up leading nowhere)
+
+
+> multiple explanations for inferences of interest
+e.g., for COPD: any of a series of inferences may lead to stratification
+
+needed to adapt FRuleEngine to keep (different) derivations of already inferred triple
+and, associate descriptions, sentences with derivations instead of node-sets
+
+
+> yes, a race condition
+need ability to set saliency of rules 
+(currently solved by applying "universal" rules in separate run)
+
+
+
+-- CODE CHANGES
 
 renamed to .txt:
 it.polimi.dei.dbgroup.pedigree.androjena.xml.DOMTransformer;
@@ -11,8 +55,10 @@ added
 to 
 	com.hp.hpl.jena.reasoner.rulesys.Rule.java
 
-added com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem, ..IsUri, ..UriStr (not needed), ..LocalName, ..JoinLinkedStrings, .. SplitOnCase, ..Trim
-	in MakeSkolem, edited Base64 call (now java.util)
+added com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem, IsUri, 
+	UriStr (not needed), LocalName, JoinLinkedStrings, SplitOnCase, Trim, NoMatch
+
+in MakeSkolem, edited Base64 call (now java.util)
 
 
 in general, look for "// edit wvw"

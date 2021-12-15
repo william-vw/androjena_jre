@@ -1,4 +1,4 @@
-package wvw.xai.jena;
+package wvw.xai.jena.print;
 
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.reasoner.rulesys.RuleDerivation;
