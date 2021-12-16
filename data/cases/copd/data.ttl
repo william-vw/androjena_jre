@@ -21,3 +21,19 @@ xpl:EntryActivity rdfs:subClassOf prov:Activity .
 :hasFeverValue rdfs:label "has %s degrees fever" .
 
 :isStratified rdfs:label "are stratified into the" .
+
+[ 	xpl:builtinName "lessThan";
+	rdfs:label "is less than"
+] .
+
+[ 	xpl:builtinName "le";
+	rdfs:label "is less or equal to"
+] .
+
+[ 	xpl:builtinName "greaterThan";
+	rdfs:label "is higher than"
+] .
+
+[ 	xpl:builtinName "ge";
+	rdfs:label "is greater or equal to"
+] .

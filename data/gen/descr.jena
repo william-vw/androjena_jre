@@ -56,8 +56,11 @@
 
 [D7:
 	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv)
-	(?en xpl:sourceFunctorName ?x)
+	(?en xpl:sourceFunctorName ?n) (?bn xpl:builtinName ?n) (?bn rdfs:label ?l) 
+	(?en xpl:sourceFunctorArgs ?a) listEntry(?a 1 ?val)
+	strConcat(?l ' ' ?val ?description)
 ->
+	(?deriv xpl:functorDescription ?description) 
 	(?deriv xpl:description '')
 ]
 

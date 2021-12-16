@@ -10,7 +10,30 @@
 	
 	# deal with isX properties
 	replaceAll("ou is" "ou are" ?sentence3 ?sentence4)
-	
 ->
 	(?deriv xpl:sentence ?sentence4)
+]
+
+[S2:
+	(<> xpl:output ?deriv)
+	joinLinkedStrings(?deriv ", " ", and " " and " xpl:via xpl:derivation xpl:functorDescription ?fdescr) 
+	strConcat("(which " ?fdescr ")" ?sentence)
+	
+	# "and is" -> "and"
+	replaceAll("(,|and) is" "$1" ?sentence ?sentence2)
+->
+	(?deriv xpl:functorSentence ?sentence2)
+]
+
+# TODO
+[S3:
+	(<> xpl:output ?deriv)
+	(?deriv xpl:via ?en1) (?en1 
+	joinLinkedStrings(?deriv ", " ", and " " and " xpl:via xpl:derivation xpl:functorDescription ?fdescr) 
+	strConcat("(which " ?fdescr ")" ?sentence)
+	
+	# "and is" -> "and"
+	replaceAll("(,|and) is" "$1" ?sentence ?sentence2)
+->
+	(?deriv xpl:functorSentence ?sentence2)
 ]

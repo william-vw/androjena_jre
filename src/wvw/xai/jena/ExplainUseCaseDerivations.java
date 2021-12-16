@@ -22,10 +22,16 @@ public class ExplainUseCaseDerivations {
 
 		Model model = ModelFactory.createDefaultModel();
 		// load data
-		for (String dataPath : dataPaths)
+		for (String dataPath : dataPaths) {
+			long start = System.currentTimeMillis();
 			model.read(assetMan.open(dataPath), "", "TURTLE");
+			long end = System.currentTimeMillis();
+			System.out.println("load " + dataPath + ": " + (end - start) + "ms");
+		}
 
 		PrintUtil.registerPrefixMap(prefixNs);
+
+		long start = System.currentTimeMillis();
 
 		// load & parse rules
 		List<Rule> rules = new ArrayList<>();
@@ -40,7 +46,12 @@ public class ExplainUseCaseDerivations {
 		infModel.add(infModel.createResource(""), infModel.createProperty(NS.uri("xpl:current")),
 				infModel.createResource(NS.uri(curNodeSet)));
 
+		long end = System.currentTimeMillis();
+		System.out.println("inf model 1: " + (end - start) + "ms");
+
 		// create inf model (2)
+		start = System.currentTimeMillis();
+
 		List<Rule> rules2 = new ArrayList<>();
 		for (String genPath : genPaths)
 			rules2.addAll(Rule.rulesFromStream(assetMan.open(genPath)));
@@ -49,6 +60,9 @@ public class ExplainUseCaseDerivations {
 		reasoner2.setMode(GenericRuleReasoner.FORWARD);
 
 		InfModel infModel2 = ModelFactory.createInfModel(reasoner2, infModel);
+
+		end = System.currentTimeMillis();
+		System.out.println("inf model 2: " + (end - start) + "ms");
 
 		infModel2.write(System.out, "TURTLE");
 //		infModel2.getDeductionsModel().write(System.out, "TURTLE");

@@ -4,12 +4,15 @@ test COPD case more extensively
 
 special case for "stratification" cases - only show "worst" zone
 	requires ordering for zones ..
-	
-for builtin comparisons, need to "expand" to short description of builtin comparisons
-	(not needed for direct uri matches, boolean matches ..)
+
+will not work in case of multiple "reason" derivations
+	does work for multiple "recommendation" derivations
+likely require updates to joinLinkedStrings or something 
 
 improve "template" for individual properties - apply the same one for sets of properties
 	(e.g., see cases/copd/data.ttl)
+
+.. yes, a race condition for sentence.jena
 
 log functor derivation for backward chainer
 
@@ -20,6 +23,9 @@ log functor derivation for backward chainer
 > in general, rules need to be very verbosely stated
 cannot take shortcuts (e.g., any symptom on 1-10 scale; need to elaborate rules per symptom)
 could somehow auto-generate these verbose rules
+
+> similarly, for builtin comparisons, "expanding" to short description:
+	currently relies on assumption that constant is the second operand
 
 
 > config per use case

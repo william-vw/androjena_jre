@@ -16,8 +16,8 @@ public class JenaExplainer {
 //		exp.dumpCopdCase();
 
 //		exp.explainSleepApneaCase();
-//		exp.explainCopdCase("data/cases/copd/patient_prov.ttl", "out/copd_yellow.ttl", "pml:nodeSet20");
-		exp.explainCopdCase("data/cases/copd/patient2_prov.ttl", "out/copd_yellow-red1.ttl", "pml:nodeSet0");
+		exp.explainCopdCase("data/cases/copd/patient_prov.ttl", "out/copd_yellow1.ttl", "pml:nodeSet20");
+//		exp.explainCopdCase("data/cases/copd/patient2_prov.ttl", "out/copd_yellow-red1.ttl", "pml:nodeSet0");
 	}
 
 	public void dumpSleepApneaCase() throws Exception {
@@ -74,8 +74,8 @@ public class JenaExplainer {
 			}
 		};
 
-		String[] dataPaths = { "data/cases/sleep-apnea/data.ttl", "data/cases/sleep-apnea/res.ttl", patientPath,
-				derivPath };
+		String[] dataPaths = { "data/labels.ttl", "data/cases/sleep-apnea/data.ttl", "data/cases/sleep-apnea/res.ttl",
+				patientPath, derivPath };
 
 		String[] selectPaths = { "data/select/epm.jena", "data/select/trace.jena", "data/select/add-info.jena",
 				"data/gen/descr.jena" };
@@ -97,9 +97,8 @@ public class JenaExplainer {
 			}
 		};
 
-		String[] dataPaths = { "data/cases/copd/data.ttl", patientPath, derivPath
-//			, "data/cases/copd/res.ttl" 
-		};
+		String[] dataPaths = { "data/labels.ttl", "data/cases/copd/data.ttl", "data/cases/copd/res.ttl", patientPath,
+				derivPath };
 
 		String[] selectPaths = { "data/select/epm.jena", "data/select/trace.jena", "data/select/add-info.jena",
 				"data/gen/descr.jena" };
