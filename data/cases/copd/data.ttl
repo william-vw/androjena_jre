@@ -14,7 +14,8 @@ xpl:EntryActivity rdfs:subClassOf prov:Activity .
 :hasFever rdfs:label "has %s fever" .
 :hasLow02Saturation rdfs:label "has low 02 saturation" .
 
-:has02SaturationValue rdfs:label "has an 02 saturation of %s%" .
+:has02SaturationValue rdfs:label "has an 02 saturation of %s" ;
+	xpl:unit "%" .
 :hasPhlemAmountValue rdfs:label "entered %s for phlem amount" .
 :hasActivityExertionValue rdfs:label "entered %s for activity exertion" .
 :hasCoughValue rdfs:label "entered %s for cough severity" .
@@ -22,18 +23,4 @@ xpl:EntryActivity rdfs:subClassOf prov:Activity .
 
 :isStratified rdfs:label "are stratified into the" .
 
-[ 	xpl:builtinName "lessThan";
-	rdfs:label "is less than"
-] .
-
-[ 	xpl:builtinName "le";
-	rdfs:label "is less or equal to"
-] .
-
-[ 	xpl:builtinName "greaterThan";
-	rdfs:label "is higher than"
-] .
-
-[ 	xpl:builtinName "ge";
-	rdfs:label "is greater or equal to"
-] .
+:YellowZone xpl:hasHigherStratum :RedZone .

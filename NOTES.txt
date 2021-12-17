@@ -1,22 +1,22 @@
 -- TODO
 
+yes, a race condition
+	need ability to set saliency of rules 
+currently solved by applying "universal" rules in separate run
+	likely better to identify & stratify "universal" rules as with jen3
+
 test COPD case more extensively
 
 joinLinked, .. -> collectAll (list)
 	+ dedicated join builtins
 problem - lists are not represented natively so will be quite inefficient ..
 
-special case for "stratification" cases - only show "worst" zone
-	requires ordering for zones ..
-
 will not work in case of multiple "reason" derivations
 	does work for multiple "recommendation" derivations
-likely require updates to joinLinkedStrings or something 
+likely require updates to collectLinked or something 
 
 improve "template" for individual properties - apply the same one for sets of properties
 	(e.g., see cases/copd/data.ttl)
-
-.. yes, a race condition for sentence.jena
 
 log functor derivation for backward chainer
 
@@ -45,11 +45,6 @@ e.g., for COPD: any of a series of inferences may lead to stratification
 
 needed to adapt FRuleEngine to keep (different) derivations of already inferred triple
 and, associate descriptions, sentences with derivations instead of node-sets
-
-
-> yes, a race condition
-need ability to set saliency of rules 
-(currently solved by applying "universal" rules in separate run)
 
 
 

@@ -1,6 +1,6 @@
 [G1:
 	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv) 
-	(?en xpl:sourcePredicate ?p)
+	(?en xpl:sourceObject ?o) isLiteral(?o) (?en xpl:sourcePredicate ?p)
 	(?r a xpl:Resource) (?r rdf:predicate ?p) (?r xpl:img ?img)
 ->
 	(?deriv xpl:img ?img)

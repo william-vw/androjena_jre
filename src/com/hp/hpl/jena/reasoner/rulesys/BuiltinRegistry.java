@@ -21,6 +21,7 @@ import com.hp.hpl.jena.reasoner.rulesys.builtins.Difference;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.Drop;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.Equal;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.GE;
+import com.hp.hpl.jena.reasoner.rulesys.builtins.GetAny;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.GreaterThan;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.Hide;
 import com.hp.hpl.jena.reasoner.rulesys.builtins.IsBNode;
@@ -154,6 +155,7 @@ public class BuiltinRegistry {
 		theRegistry.register(new LocalName());
 		theRegistry.register(new JoinLinked());
 		theRegistry.register(new CountLinked());
+		theRegistry.register(new GetAny());
 		theRegistry.register(new SplitOnCase());
 		theRegistry.register(new ReplaceAll());
 		theRegistry.register(new Trim());
