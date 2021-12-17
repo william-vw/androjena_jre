@@ -2,6 +2,10 @@
 
 test COPD case more extensively
 
+joinLinked, .. -> collectAll (list)
+	+ dedicated join builtins
+problem - lists are not represented natively so will be quite inefficient ..
+
 special case for "stratification" cases - only show "worst" zone
 	requires ordering for zones ..
 
@@ -22,7 +26,7 @@ log functor derivation for backward chainer
 
 > in general, rules need to be very verbosely stated
 cannot take shortcuts (e.g., any symptom on 1-10 scale; need to elaborate rules per symptom)
-could somehow auto-generate these verbose rules
+(could somehow auto-generate these verbose rules)
 
 > similarly, for builtin comparisons, "expanding" to short description:
 	currently relies on assumption that constant is the second operand
@@ -62,7 +66,7 @@ to
 	com.hp.hpl.jena.reasoner.rulesys.Rule.java
 
 added com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem, IsUri, 
-	UriStr (not needed), LocalName, JoinLinkedStrings, SplitOnCase, Trim, NoMatch
+	UriStr (not needed), LocalName, JoinLinked, CountLinked, SplitOnCase, Trim, NoMatch
 
 in MakeSkolem, edited Base64 call (now java.util)
 

@@ -5,27 +5,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.hp.hpl.jena.graph.Node;
-import com.hp.hpl.jena.graph.Triple;
 import com.hp.hpl.jena.reasoner.rulesys.BuiltinException;
 import com.hp.hpl.jena.reasoner.rulesys.RuleContext;
 
-public class JoinLinkedStrings extends BaseBuiltin {
+public class JoinLinked extends CollectAll {
 
 	/**
 	 * Return a name for this builtin, normally this will be the name of the functor
 	 * that will be used to invoke it.
 	 */
 	public String getName() {
-		return "joinLinkedStrings";
-	}
-
-	/**
-	 * Return the expected number of arguments for this functor or 0 if the number
-	 * is flexible.
-	 */
-	@Override
-	public int getArgLength() {
-		return 0;
+		return "joinLinked";
 	}
 
 	/**
@@ -49,36 +39,18 @@ public class JoinLinkedStrings extends BaseBuiltin {
 		String separator2 = getArg(2, args, context).getLiteralValue().toString();
 		String separator3 = getArg(3, args, context).getLiteralValue().toString();
 
-		List<Node> expanding = new ArrayList<>();
-		expanding.add(root);
-		List<Node> expanded = new ArrayList<>();
-		for (int i = 4; i < length - 1; i++) {
-			Node prp = getArg(i, args, context);
-//			System.out.println("expanding? " + expanding + " - " + prp);
+		Node[] properties = new Node[args.length - 5];
+		System.arraycopy(args, 4, properties, 0, properties.length);
 
-			Iterator<Node> it0 = expanding.iterator();
-			while (it0.hasNext()) {
-				Node n0 = it0.next();
-				it0.remove();
-
-				Iterator<Triple> it = context.getGraph().find(n0, prp, null);
-				while (it.hasNext())
-					expanded.add(it.next().getObject());
-			}
-
-//			System.out.println("expanded? " + expanded);
-			expanding.addAll(expanded);
-			expanded.clear();
-		}
-//		System.out.println("");
+		List<Node> nodes = collectAll(root, properties, context);
 
 		// if needed, wait until all data is available
-		if (expanding.isEmpty())
+		if (nodes.isEmpty())
 			return false;
 
 		List<String> strs = new ArrayList<>();
 
-		Iterator<Node> it = expanding.iterator();
+		Iterator<Node> it = nodes.iterator();
 		while (it.hasNext()) {
 			String str = lex(it.next(), context);
 			if (!str.isBlank())
@@ -89,10 +61,10 @@ public class JoinLinkedStrings extends BaseBuiltin {
 		for (int i = 0; i < strs.size(); i++) {
 			String str = strs.get(i);
 
-			if (expanding.size() > 2 && i == expanding.size() - 1)
+			if (nodes.size() > 2 && i == nodes.size() - 1)
 				buff.append(separator2);
 			else if (i > 0) {
-				if (expanding.size() == 2)
+				if (nodes.size() == 2)
 					buff.append(separator3);
 				else
 					buff.append(separator1);

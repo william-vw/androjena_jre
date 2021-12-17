@@ -1,7 +1,7 @@
 [S1:
 	(<> xpl:output ?deriv) (?deriv xpl:description ?descr)
 	strConcat("You " ?descr " because you " ?descr2)
-	joinLinkedStrings(?deriv ", " ", and " " and " xpl:via xpl:derivation xpl:description ?descr3)
+	joinLinked(?deriv ", " ", and " " and " xpl:via xpl:derivation xpl:description ?descr3)
 	strConcat(?descr2 ?descr3 '.' ?sentence)
 	
 	# deal with hasX properties
@@ -16,24 +16,34 @@
 
 [S2:
 	(<> xpl:output ?deriv)
-	joinLinkedStrings(?deriv ", " ", and " " and " xpl:via xpl:derivation xpl:functorDescription ?fdescr) 
+	countLinked(?deriv xpl:via xpl:sourceFunctorName 1)
+	(?deriv xpl:via ?en1) (?en1 xpl:sourceFunctorName ?x) 
+	(?en1 xpl:derivation ?deriv1) (?deriv1 xpl:functorDescription ?fdescr)
 	strConcat("(which " ?fdescr ")" ?sentence)
-	
-	# "and is" -> "and"
-	replaceAll("(,|and) is" "$1" ?sentence ?sentence2)
 ->
-	(?deriv xpl:functorSentence ?sentence2)
+	(?deriv xpl:functorSentence ?sentence)
 ]
 
-# TODO
 [S3:
 	(<> xpl:output ?deriv)
-	(?deriv xpl:via ?en1) (?en1 
-	joinLinkedStrings(?deriv ", " ", and " " and " xpl:via xpl:derivation xpl:functorDescription ?fdescr) 
-	strConcat("(which " ?fdescr ")" ?sentence)
-	
-	# "and is" -> "and"
-	replaceAll("(,|and) is" "$1" ?sentence ?sentence2)
+	(?deriv xpl:via ?en1) (?en1 xpl:sourceFunctorName ?n1)
+	regex(?n1 "(greaterThan|ge)")
+	(?deriv xpl:via ?en2) (?en2 xpl:sourceFunctorName ?n2)
+	regex(?n2 "(lessThan|le)")
+	(?en1 xpl:sourceFunctorArgs ?a1) listEntry(?a1 1 ?v1)
+	(?en2 xpl:sourceFunctorArgs ?a2) listEntry(?a2 1 ?v2)
+	strConcat("(which lies between " ?v1 " and " ?v2 ")" ?sentence)
 ->
-	(?deriv xpl:functorSentence ?sentence2)
+	(?deriv xpl:functorSentence ?sentence)
 ]
+
+#[S3:
+#	(<> xpl:output ?deriv)
+#	joinLinked(?deriv ", " ", and " " and " xpl:via xpl:derivation xpl:functorDescription ?fdescr) 
+#	strConcat("(which " ?fdescr ")" ?sentence)
+#	
+	# "and is" -> "and"
+#	replaceAll("(,|and) is" "$1" ?sentence ?sentence2)
+#->
+#	(?deriv xpl:functorSentence ?sentence2)
+#]

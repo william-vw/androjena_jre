@@ -16,8 +16,8 @@ public class JenaExplainer {
 //		exp.dumpCopdCase();
 
 //		exp.explainSleepApneaCase();
-		exp.explainCopdCase("data/cases/copd/patient_prov.ttl", "out/copd_yellow1.ttl", "pml:nodeSet20");
-//		exp.explainCopdCase("data/cases/copd/patient2_prov.ttl", "out/copd_yellow-red1.ttl", "pml:nodeSet0");
+//		exp.explainCopdCase("data/cases/copd/patient_prov.ttl", "out/copd_yellow1.ttl", "pml:nodeSet20");
+		exp.explainCopdCase("data/cases/copd/patient2_prov.ttl", "out/copd_yellow-red1.ttl", "pml:nodeSet0");
 	}
 
 	public void dumpSleepApneaCase() throws Exception {
