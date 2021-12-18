@@ -1,4 +1,4 @@
-@prefix : <http://niche.cs.dal.ca/ns/sleep_apnea.owl#> .
+@prefix : <http://niche.cs.dal.ca/ns/copd.owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -6,61 +6,99 @@
 @prefix pml: <http://provenanceweb.org/ns/pml#> . 
 @prefix xpl: <http://niche.cs.dal.ca/xpl#> .
 
+
 [	a xpl:Resource ;
-	rdf:predicate :hasExcessiveDaytimeSleepiness ;
-	rdf:object true ;
-	xpl:img <hasExcessiveDaytimeSleepiness.jpg>
+	xpl:sourcePredicate :isStratified ;
+	xpl:sourceObject :YellowZone ;
+	xpl:img <YellowZone.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasChokingOrGaspingDuringSleep ;
-	rdf:object true ;
-	xpl:img <hasChokingOrGaspingDuringSleep.jpg>
+	xpl:sourcePredicate :isStratified ;
+	xpl:sourceObject :RedZone ;
+	xpl:img <RedZone.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasRecurrentAwakeningsFromSleep ;
-	rdf:object true ;
-	xpl:img <hasRecurrentAwakeningsFromSleep.jpg>
+	xpl:sourcePredicate :hasLow02Saturation ;
+	xpl:sourceObject true ;
+	xpl:img <hasLow02Saturation.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasUnrefreshingSleep ;
-	rdf:object true ;
-	xpl:img <hasUnrefreshingSleep.jpg>
+	xpl:sourcePredicate :hasConfusion ;
+	xpl:sourceObject true ;
+	xpl:img <hasConfusion.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasNumberOfApneaSleepEvents ;
-	xpl:img <hasNumberOfApneaSleepEvents.jpg>
+	xpl:sourcePredicate :hasChestPain ;
+	xpl:sourceObject true ;
+	xpl:img <hasChestPain.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticA ;
-	xpl:img <DiagnosticA.jpg>
+	xpl:sourcePredicate :hasCyanosis ;
+	xpl:sourceObject true ;
+	xpl:img <hasCyanosis.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticB1 ;
-	xpl:img <DiagnosticB1.jpg>
+	xpl:sourcePredicate :hasSwollenAnkle ;
+	xpl:sourceObject true ;
+	xpl:img <hasSwollenAnkle.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticB2 ;
-	xpl:img <DiagnosticB2.jpg>
+	xpl:sourcePredicate :hasColoredPhlem ;
+	xpl:sourceObject true ;
+	xpl:img <hasColoredPhlem.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticB3 ;
-	xpl:img <DiagnosticB3.jpg>
+	xpl:sourcePredicate :hasPhlemAmount ;
+	xpl:sourceObject :Moderate ;
+	xpl:img <hasPhlemAmount_Moderate.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticC ;
-	xpl:img <DiagnosticC.jpg>
+	xpl:sourcePredicate :hasPhlemAmount ;
+	xpl:sourceObject :Severe ;
+	xpl:img <hasPhlemAmount_Severe.jpg>
+] .
+
+[	a xpl:Resource ;
+	xpl:sourcePredicate :hasCough ;
+	xpl:sourceObject :Moderate ;
+	xpl:img <hasCough_Moderate.jpg>
+] .
+
+[	a xpl:Resource ;
+	xpl:sourcePredicate :hasCough ;
+	xpl:sourceObject :Severe ;
+	xpl:img <hasCough_Severe.jpg>
+] .
+
+[	a xpl:Resource ;
+	xpl:sourcePredicate :hasFever ;
+	xpl:sourceObject :Moderate ;
+	xpl:img <hasFever_Moderate.jpg>
+] .
+
+[	a xpl:Resource ;
+	xpl:sourcePredicate :hasFever ;
+	xpl:sourceObject :Severe ;
+	xpl:img <hasFever_Severe.jpg>
+] .
+
+[	a xpl:Resource ;
+	xpl:sourcePredicate :hasActivityExertion ;
+	xpl:sourceObject :Moderate ;
+	xpl:img <hasActivityExertion_Moderate.jpg>
+] .
+
+[	a xpl:Resource ;
+	xpl:sourcePredicate :hasActivityExertion ;
+	xpl:sourceObject :Severe ;
+	xpl:img <hasActivityExertion_Severe.jpg>
 ] .

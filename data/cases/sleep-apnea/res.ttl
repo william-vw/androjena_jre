@@ -7,60 +7,60 @@
 @prefix xpl: <http://niche.cs.dal.ca/xpl#> .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasExcessiveDaytimeSleepiness ;
-	rdf:object true ;
+	xpl:sourcePredicate :hasExcessiveDaytimeSleepiness ;
+	xpl:sourceObject true ;
 	xpl:img <hasExcessiveDaytimeSleepiness.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasChokingOrGaspingDuringSleep ;
-	rdf:object true ;
+	xpl:sourcePredicate :hasChokingOrGaspingDuringSleep ;
+	xpl:sourceObject true ;
 	xpl:img <hasChokingOrGaspingDuringSleep.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasRecurrentAwakeningsFromSleep ;
-	rdf:object true ;
+	xpl:sourcePredicate :hasRecurrentAwakeningsFromSleep ;
+	xpl:sourceObject true ;
 	xpl:img <hasRecurrentAwakeningsFromSleep.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasUnrefreshingSleep ;
-	rdf:object true ;
+	xpl:sourcePredicate :hasUnrefreshingSleep ;
+	xpl:sourceObject true ;
 	xpl:img <hasUnrefreshingSleep.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasNumberOfApneaSleepEvents ;
+	xpl:sourcePredicate :hasNumberOfApneaSleepEvents ;
 	xpl:img <hasNumberOfApneaSleepEvents.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticA ;
+	xpl:sourcePredicate :hasDiagnostic ;
+	xpl:sourceObject :DiagnosticA ;
 	xpl:img <DiagnosticA.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticB1 ;
+	xpl:sourcePredicate :hasDiagnostic ;
+	xpl:sourceObject :DiagnosticB1 ;
 	xpl:img <DiagnosticB1.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticB2 ;
+	xpl:sourcePredicate :hasDiagnostic ;
+	xpl:sourceObject :DiagnosticB2 ;
 	xpl:img <DiagnosticB2.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticB3 ;
+	xpl:sourcePredicate :hasDiagnostic ;
+	xpl:sourceObject :DiagnosticB3 ;
 	xpl:img <DiagnosticB3.jpg>
 ] .
 
 [	a xpl:Resource ;
-	rdf:predicate :hasDiagnostic ;
-	rdf:object :DiagnosticC ;
+	xpl:sourcePredicate :hasDiagnostic ;
+	xpl:sourceObject :DiagnosticC ;
 	xpl:img <DiagnosticC.jpg>
 ] .

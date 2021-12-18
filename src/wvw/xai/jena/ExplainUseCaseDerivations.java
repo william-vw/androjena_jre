@@ -1,5 +1,6 @@
 package wvw.xai.jena;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,17 +20,22 @@ import wvw.utils.jena.NS;
 public class ExplainUseCaseDerivations {
 
 	public static void explain(Map<String, String> prefixNs, String[] dataPaths, String[] selectPaths,
-			String[] genPaths, String targetPrp) throws Exception {
+			String[] genPaths, String targetPrp) throws ExplException {
 
 		AssetManager assetMan = new AssetManager();
-
 		Model model = ModelFactory.createDefaultModel();
-		// load data
-		for (String dataPath : dataPaths) {
-			long start = System.currentTimeMillis();
-			model.read(assetMan.open(dataPath), "", "TURTLE");
-			long end = System.currentTimeMillis();
-			System.out.println("load " + dataPath + ": " + (end - start) + "ms");
+
+		try {
+			// load data
+			for (String dataPath : dataPaths) {
+				long start = System.currentTimeMillis();
+				model.read(assetMan.open(dataPath), "", "TURTLE");
+				long end = System.currentTimeMillis();
+				System.out.println("load " + dataPath + ": " + (end - start) + "ms");
+			}
+
+		} catch (IOException e) {
+			throw new ExplException("error loading data", e);
 		}
 
 		PrintUtil.registerPrefixMap(prefixNs);
@@ -38,8 +44,13 @@ public class ExplainUseCaseDerivations {
 
 		// load & parse rules
 		List<Rule> rules = new ArrayList<>();
-		for (String selectPath : selectPaths)
-			rules.addAll(Rule.rulesFromStream(assetMan.open(selectPath)));
+		try {
+			for (String selectPath : selectPaths)
+				rules.addAll(Rule.rulesFromStream(assetMan.open(selectPath)));
+
+		} catch (IOException e) {
+			throw new ExplException("error loading rules", e);
+		}
 
 		// create inf model
 		GenericRuleReasoner reasoner = new GenericRuleReasoner(rules);
@@ -57,8 +68,13 @@ public class ExplainUseCaseDerivations {
 		start = System.currentTimeMillis();
 
 		List<Rule> rules2 = new ArrayList<>();
-		for (String genPath : genPaths)
-			rules2.addAll(Rule.rulesFromStream(assetMan.open(genPath)));
+		try {
+			for (String genPath : genPaths)
+				rules2.addAll(Rule.rulesFromStream(assetMan.open(genPath)));
+
+		} catch (IOException e) {
+			throw new ExplException("error loading rules", e);
+		}
 
 		GenericRuleReasoner reasoner2 = new GenericRuleReasoner(rules2);
 		reasoner2.setMode(GenericRuleReasoner.FORWARD);
@@ -72,9 +88,12 @@ public class ExplainUseCaseDerivations {
 //		infModel2.getDeductionsModel().write(System.out, "TURTLE");
 	}
 
-	private static RDFNode nodeSetWithConclusion(String prp, InfModel infModel) {
-		StmtIterator it = infModel.listStatements(null, infModel.createProperty(NS.uri("rdf:predicate")),
-				infModel.createResource(NS.uri(prp)));
+	private static RDFNode nodeSetWithConclusion(String prp, InfModel infModel) throws ExplException {
+		Resource prpRes = infModel.createResource(NS.uri(prp));
+		StmtIterator it = infModel.listStatements(null, infModel.createProperty(NS.uri("rdf:predicate")), prpRes);
+
+		if (!it.hasNext())
+			throw new ExplException("no conclusion found with property '" + prpRes + "'");
 
 		Resource stmt = null;
 		while (it.hasNext()) {
@@ -86,9 +105,8 @@ public class ExplainUseCaseDerivations {
 			}
 		}
 
-		Resource info = (Resource) infModel.listStatements(null, infModel.createProperty(NS.uri("prov:value")), stmt)
-				.next().getSubject();
-
+		Resource info = infModel.listStatements(null, infModel.createProperty(NS.uri("prov:value")), stmt).next()
+				.getSubject();
 		return infModel.listStatements(null, infModel.createProperty(NS.uri("pml:hasConclusion")), info).next()
 				.getSubject();
 

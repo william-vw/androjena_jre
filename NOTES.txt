@@ -61,7 +61,7 @@ to
 	com.hp.hpl.jena.reasoner.rulesys.Rule.java
 
 added com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem, IsUri, 
-	UriStr (not needed), LocalName, JoinLinked, CountLinked, SplitOnCase, Trim, NoMatch
+	UriStr (not needed), LocalName, CollectAll (& subclasses), SplitOnCase, Trim, NoMatch
 
 in MakeSkolem, edited Base64 call (now java.util)
 

@@ -1,17 +1,18 @@
 package com.hp.hpl.jena.reasoner.rulesys.builtins;
 
+import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.reasoner.rulesys.BuiltinException;
 import com.hp.hpl.jena.reasoner.rulesys.RuleContext;
 
-public class GetAny extends CollectAll {
+public class CountAllLinked extends CollectAll {
 
 	/**
 	 * Return a name for this builtin, normally this will be the name of the functor
 	 * that will be used to invoke it.
 	 */
 	public String getName() {
-		return "getAny";
+		return "countAllLinked";
 	}
 
 	/**
@@ -37,7 +38,10 @@ public class GetAny extends CollectAll {
 
 		collectAll(root, properties, context);
 
-		Node result = (!nodes.isEmpty() ? nodes.get(0) : Node.createLiteral(""));
+		int nr = nodes.size();
+//		System.out.println("countAll: " + root + " - " + nr);
+		Node result = Node.createLiteral(nr + "", null, XSDDatatype.XSDint);
+
 		return context.getEnv().bind(args[args.length - 1], result);
 	}
 }

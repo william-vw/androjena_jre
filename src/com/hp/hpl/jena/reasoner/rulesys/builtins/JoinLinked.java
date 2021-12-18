@@ -42,7 +42,8 @@ public class JoinLinked extends CollectAll {
 		Node[] properties = new Node[args.length - 5];
 		System.arraycopy(args, 4, properties, 0, properties.length);
 
-		List<Node> nodes = collectAll(root, properties, context);
+		collectAll(root, properties, context);
+//		System.out.println("joinLinked: " + nodes);
 
 		// if needed, wait until all data is available
 		if (nodes.isEmpty())
@@ -72,6 +73,7 @@ public class JoinLinked extends CollectAll {
 
 			buff.append(str);
 		}
+
 		Node result = Node.createLiteral(buff.toString());
 		return context.getEnv().bind(args[length - 1], result);
 	}
@@ -90,7 +92,6 @@ public class JoinLinked extends CollectAll {
 			throw new BuiltinException(this, context, "Illegal node type: " + n);
 		}
 	}
-
 }
 
 /*

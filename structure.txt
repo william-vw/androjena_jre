@@ -7,11 +7,11 @@ nodeSet0
 			rdf:subject, ..
 
 	derivation - recomm
-		nodeSet1
-		nodeSet2
+		via nodeSet1
+		via nodeSet2
 	derivation - recomm
-		nodeSet3
-		nodeSet4 - reason
+		via nodeSet3
+		via nodeSet4 - reason
 			derivation
-				nodeSet5
-				nodeSet6
+				via nodeSet5
+				via nodeSet6

@@ -1,15 +1,15 @@
 [G1:
 	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv) 
 	(?en xpl:sourceObject ?o) isLiteral(?o) (?en xpl:sourcePredicate ?p)
-	(?r a xpl:Resource) (?r rdf:predicate ?p) (?r xpl:img ?img)
+	(?r rdf:type xpl:Resource) (?r xpl:sourcePredicate ?p) (?r xpl:img ?img)
 ->
-	(?deriv xpl:img ?img)
+	(?en xpl:graphic ?img)
 ]
 
 [G2:
 	(<> xpl:output ?deriv) (?en xpl:derivation ?deriv) 
 	(?en xpl:sourceObject ?o) isUri(?o) (?en xpl:sourcePredicate ?p)
-	(?r a xpl:Resource) (?r rdf:predicate ?p) (?r rdf:object ?o) (?r xpl:img ?img)
+	(?r rdf:type xpl:Resource) (?r xpl:sourcePredicate ?p) (?r xpl:sourceObject ?o) (?r xpl:img ?img)
 ->
-	(?deriv xpl:img ?img)
+	(?en xpl:graphic ?img)
 ]

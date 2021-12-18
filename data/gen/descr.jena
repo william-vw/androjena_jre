@@ -64,7 +64,7 @@
 	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps) noMatch(?ps ".*%s.*")
 	strConcat (?ps ' ' ?os ?descr) trim(?descr ?descr2)
 ->
-	(?deriv xpl:description ?descr2)
+	(?en xpl:description ?descr2)
 ]
 
 # predicates with placeholders (non-bool values)
@@ -75,7 +75,7 @@
 	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps) regex(?ps ".*%s.*")
 	replaceAll("%s" ?os ?ps ?ps2)
 ->
-	(?deriv xpl:description ?ps2)
+	(?en xpl:description ?ps2)
 ]
 
 # boolean values
@@ -84,7 +84,7 @@
 	(?en xpl:sourceObject "true"^^xsd:boolean)
 	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps)
 ->
-	(?deriv xpl:description ?ps)
+	(?en xpl:description ?ps)
 ]
 
 [D6:
@@ -93,7 +93,7 @@
 	(?en xpl:sourcePredicate ?p) (?p xpl:string ?ps)
 	strConcat("no " ?ps ?descr)
 ->
-	(?deriv xpl:description ?descr)
+	(?en xpl:description ?descr)
 ]
 
 # functors
@@ -105,6 +105,6 @@
 	(?deriv0 xpl:via ?en) getAny(?deriv0 xpl:via xpl:sourcePredicate xpl:unit ?unit) 
 	strConcat(?l ' ' ?val ?unit ?description)
 ->
-	(?deriv xpl:functorDescription ?description) 
-	(?deriv xpl:description '')
+	(?en xpl:functorDescription ?description) 
+	(?en xpl:description '')
 ]

@@ -1,20 +1,27 @@
 package com.hp.hpl.jena.reasoner.rulesys.builtins;
 
-import java.util.List;
-
-import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.reasoner.rulesys.BuiltinException;
 import com.hp.hpl.jena.reasoner.rulesys.RuleContext;
 
-public class CountLinked extends CollectAll {
+public class CountEachLinked extends CollectAll {
+
+	// count = allowed branching factor per "hop" in the graph
+
+	// TODO in practice this is only useful when this is "1" - more useful would be
+	// "count" being the final number of branches per first-level node
+	// (i.e., first set of nodes after the root node)
+
+	private int count;
+
+	private int cur = 0;
 
 	/**
 	 * Return a name for this builtin, normally this will be the name of the functor
 	 * that will be used to invoke it.
 	 */
 	public String getName() {
-		return "countLinked";
+		return "countEachLinked";
 	}
 
 	/**
@@ -35,14 +42,32 @@ public class CountLinked extends CollectAll {
 
 		Node root = getArg(0, args, context);
 
+		count = (Integer) getArg(args.length - 1, args, context).getLiteralValue();
+
 		Node[] properties = new Node[args.length - 2];
 		System.arraycopy(args, 1, properties, 0, properties.length);
 
-		List<Node> nodes = collectAll(root, properties, context);
-		
-		int nr = nodes.size();
-		Node result = Node.createLiteral(nr + "", null, XSDDatatype.XSDint);
+		return collectAll(root, properties, context);
+	}
 
-		return context.getEnv().bind(args[args.length - 1], result);
+//	private Node n0;
+//	private Node prp;
+
+	@Override
+	protected void expanding(Node n, Node property) {
+		cur = 0;
+
+//		n0 = n;
+//		prp = property;
+	}
+
+	@Override
+	protected boolean expanded(Node n, int iteration) {
+		cur++;
+
+//		if (iteration > 0)
+//			System.out.println("countEach: " + n0 + " - " + prp + " - " + cur);
+
+		return !(iteration > 0 && cur > count);
 	}
 }

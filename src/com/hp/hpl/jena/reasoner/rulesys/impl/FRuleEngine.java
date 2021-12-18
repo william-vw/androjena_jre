@@ -473,6 +473,7 @@ public class FRuleEngine implements FRuleEngineI {
 				Object hClause = rule.getHeadElement(i);
 				if (hClause instanceof TriplePattern) {
 					Triple t = env.instantiate((TriplePattern) hClause);
+					// System.out.println("t? " + t);
 					if (!t.getSubject().isLiteral()) {
 						// Only add the result if it is legal at the RDF level.
 						// E.g. RDFS rules can create assertions about literals

@@ -12,6 +12,8 @@ import com.hp.hpl.jena.reasoner.rulesys.RuleContext;
 
 public abstract class CollectAll extends BaseBuiltin {
 
+	protected List<Node> nodes;
+
 	/**
 	 * Return the expected number of arguments for this functor or 0 if the number
 	 * is flexible.
@@ -21,35 +23,47 @@ public abstract class CollectAll extends BaseBuiltin {
 		return 0;
 	}
 
-	protected List<Node> collectAll(Node root, Node[] properties, RuleContext context) {
-		List<Node> expanding = new ArrayList<>();
-		expanding.add(root);
+	protected boolean collectAll(Node root, Node[] properties, RuleContext context) {
+		nodes = new ArrayList<>();
+		nodes.add(root);
 
 		Set<Node> expanded = new HashSet<>();
 		for (int i = 0; i < properties.length; i++) {
 			Node prp = getArg(i, properties, context);
 			// System.out.println("expanding? " + prp + " - " + expanding);
 
-			Iterator<Node> it0 = expanding.iterator();
+			Iterator<Node> it0 = nodes.iterator();
 			while (it0.hasNext()) {
 				Node n0 = it0.next();
 				it0.remove();
 
 				Iterator<Triple> it = context.getGraph().find(n0, prp, null);
+				expanding(n0, prp);
 				while (it.hasNext()) {
 					Node n = it.next().getObject();
+					if (!expanded(n, i))
+						return false;
 					if (!expanded.contains(n))
 						expanded.add(n);
 				}
 			}
 
 			// System.out.println("expanded? " + expanded);
-			expanding.addAll(expanded);
+			nodes.addAll(expanded);
 			expanded.clear();
 		}
 		// System.out.println("");
 
-		return expanding;
+		return true;
+	}
+
+	// to be overridden by subclasses
+	
+	protected void expanding(Node n, Node property) {
+	}
+
+	protected boolean expanded(Node n, int iteration) {
+		return true;
 	}
 }
 
