@@ -172,9 +172,11 @@ public class RETEConflictSet {
                     if (isAdd) {
                         if ( ! context.contains(t) ) {
                             engine.addTriple(t, true);
-                            if (infGraph.shouldLogDerivations()) {
-                                infGraph.logDerivation(t, new RuleDerivation(rule, t, matchList, infGraph));
-                            }
+                        }
+                        // edit wvw (always record derivations; keep duplicate inferences with different
+						// derivation trees)
+                        if (infGraph.shouldLogDerivations()) {
+                            infGraph.logDerivation(t, new RuleDerivation(rule, t, matchList, infGraph));
                         }
                     } else {
                         if ( context.contains(t)) {

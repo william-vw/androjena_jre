@@ -47,6 +47,9 @@ public class ExplainUseCaseDerivations {
 		try {
 			for (String selectPath : selectPaths)
 				rules.addAll(Rule.rulesFromStream(assetMan.open(selectPath)));
+			
+			for (String genPath : genPaths)
+				rules.addAll(Rule.rulesFromStream(assetMan.open(genPath)));
 
 		} catch (IOException e) {
 			throw new ExplException("error loading rules", e);
@@ -61,31 +64,31 @@ public class ExplainUseCaseDerivations {
 		RDFNode nodeSet = nodeSetWithConclusion(targetPrp, infModel);
 		infModel.add(infModel.createResource(""), infModel.createProperty(NS.uri("xpl:current")), nodeSet);
 
+//		long end = System.currentTimeMillis();
+//		System.out.println("inf model 1: " + (end - start) + "ms");
+//
+//		// create inf model (2)
+//		start = System.currentTimeMillis();
+//
+//		List<Rule> rules2 = new ArrayList<>();
+//		try {
+//			for (String genPath : genPaths)
+//				rules2.addAll(Rule.rulesFromStream(assetMan.open(genPath)));
+//
+//		} catch (IOException e) {
+//			throw new ExplException("error loading rules", e);
+//		}
+//
+//		GenericRuleReasoner reasoner2 = new GenericRuleReasoner(rules2);
+//		reasoner2.setMode(GenericRuleReasoner.FORWARD);
+//
+//		InfModel infModel2 = ModelFactory.createInfModel(reasoner2, infModel);
+
 		long end = System.currentTimeMillis();
-		System.out.println("inf model 1: " + (end - start) + "ms");
+		System.out.println("inf model: " + (end - start) + "ms");
 
-		// create inf model (2)
-		start = System.currentTimeMillis();
-
-		List<Rule> rules2 = new ArrayList<>();
-		try {
-			for (String genPath : genPaths)
-				rules2.addAll(Rule.rulesFromStream(assetMan.open(genPath)));
-
-		} catch (IOException e) {
-			throw new ExplException("error loading rules", e);
-		}
-
-		GenericRuleReasoner reasoner2 = new GenericRuleReasoner(rules2);
-		reasoner2.setMode(GenericRuleReasoner.FORWARD);
-
-		InfModel infModel2 = ModelFactory.createInfModel(reasoner2, infModel);
-
-		end = System.currentTimeMillis();
-		System.out.println("inf model 2: " + (end - start) + "ms");
-
-		infModel2.write(System.out, "TURTLE");
-//		infModel2.getDeductionsModel().write(System.out, "TURTLE");
+		infModel.write(System.out, "TURTLE");
+//		infModel.getDeductionsModel().write(System.out, "TURTLE");
 	}
 
 	private static RDFNode nodeSetWithConclusion(String prp, InfModel infModel) throws ExplException {

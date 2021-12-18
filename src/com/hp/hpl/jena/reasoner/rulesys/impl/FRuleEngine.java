@@ -10,6 +10,7 @@
 package com.hp.hpl.jena.reasoner.rulesys.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -62,6 +63,8 @@ public class FRuleEngine implements FRuleEngineI {
 
 	/** List of predicates used in rules to assist in fast data loading */
 	protected HashSet<Node> predicatesUsed;
+
+	private List<Rule> nonMonotonicRules = new ArrayList<>();
 
 	/**
 	 * Flag, if true then there is a wildcard predicate in the rule set so that
@@ -241,28 +244,45 @@ public class FRuleEngine implements FRuleEngineI {
 	 */
 	public void addSet(BFRuleContext context) {
 		Triple t;
-		while ((t = context.getNextTriple()) != null) {
-			if (infGraph.shouldTrace()) {
-				logger.info("Processing: " + PrintUtil.print(t));
-			}
-			// Check for rule triggers
-			HashSet<Rule> firedRules = new HashSet<Rule>();
-			Iterator<ClausePointer> i1 = clauseIndex.getAll(t.getPredicate());
-			Iterator<ClausePointer> i2 = clauseIndex.getAll(Node.ANY);
-			Iterator<ClausePointer> i = new ConcatenatedIterator<ClausePointer>(i1, i2);
-			while (i.hasNext()) {
-				ClausePointer cp = i.next();
-				if (firedRules.contains(cp.rule))
-					continue;
-				context.resetEnv(cp.rule.getNumVars());
-				TriplePattern trigger = (TriplePattern) cp.rule.getBodyElement(cp.index);
-				if (match(trigger, t, context.getEnvStack())) {
-					nRulesTriggered++;
-					context.setRule(cp.rule);
-					if (matchRuleBody(cp.index, context)) {
-						firedRules.add(cp.rule);
-						nRulesFired++;
+
+		// non-monotonic rules
+		while (context.hasNextTriple()) {
+
+			// monotonic rules
+			while (context.hasNextTriple()) {
+				t = context.getNextTriple();
+
+				if (infGraph.shouldTrace()) {
+					logger.info("Processing: " + PrintUtil.print(t));
+				}
+				// Check for rule triggers
+				HashSet<Rule> firedRules = new HashSet<Rule>();
+				Iterator<ClausePointer> i1 = clauseIndex.getAll(t.getPredicate());
+				Iterator<ClausePointer> i2 = clauseIndex.getAll(Node.ANY);
+				Iterator<ClausePointer> i = new ConcatenatedIterator<ClausePointer>(i1, i2);
+				while (i.hasNext()) {
+					ClausePointer cp = i.next();
+					if (firedRules.contains(cp.rule))
+						continue;
+					context.resetEnv(cp.rule.getNumVars());
+					TriplePattern trigger = (TriplePattern) cp.rule.getBodyElement(cp.index);
+					if (match(trigger, t, context.getEnvStack())) {
+						nRulesTriggered++;
+						context.setRule(cp.rule);
+						if (matchRuleBody(cp.index, context)) {
+							firedRules.add(cp.rule);
+							nRulesFired++;
+						}
 					}
+				}
+			}
+
+			for (Rule r : nonMonotonicRules) {
+//				System.out.println("non-mon: " + r);
+				context.resetEnv(r.getNumVars());
+				context.setRule(r);
+				if (matchRuleBody(context)) {
+					nRulesFired++;
 				}
 			}
 		}
@@ -285,18 +305,23 @@ public class FRuleEngine implements FRuleEngineI {
 			Rule r = i.next();
 			if (ignoreBrules && r.isBackward())
 				continue;
-			Object[] body = r.getBody();
-			for (int j = 0; j < body.length; j++) {
-				if (body[j] instanceof TriplePattern) {
-					Node predicate = ((TriplePattern) body[j]).getPredicate();
-					ClausePointer cp = new ClausePointer(r, j);
-					if (predicate.isVariable()) {
-						clauseIndex.put(Node.ANY, cp);
-						wildcardRule = true;
-					} else {
-						clauseIndex.put(predicate, cp);
-						if (!wildcardRule) {
-							predicatesUsed.add(predicate);
+
+			if (!r.isMonotonic()) {
+				nonMonotonicRules.add(r);
+			} else {
+				Object[] body = r.getBody();
+				for (int j = 0; j < body.length; j++) {
+					if (body[j] instanceof TriplePattern) {
+						Node predicate = ((TriplePattern) body[j]).getPredicate();
+						ClausePointer cp = new ClausePointer(r, j);
+						if (predicate.isVariable()) {
+							clauseIndex.put(Node.ANY, cp);
+							wildcardRule = true;
+						} else {
+							clauseIndex.put(predicate, cp);
+							if (!wildcardRule) {
+								predicatesUsed.add(predicate);
+							}
 						}
 					}
 				}
@@ -367,31 +392,39 @@ public class FRuleEngine implements FRuleEngineI {
 	 * @param context a context containing a set of new triples to be added
 	 * @return true if the rule actually fires
 	 */
-	private boolean matchRuleBody(int trigger, BFRuleContext context) {
-		Rule rule = context.getRule();
-		// Create an ordered list of body clauses to process, best at the end
-		ClauseEntry[] body = rule.getBody();
-		int len = body.length;
-		List<ClauseEntry> clauses = new ArrayList<ClauseEntry>(len - 1);
 
-		if (len <= 1) {
+	private boolean matchRuleBody(int trigger, BFRuleContext context) {
+		Rule r = context.getRule();
+		List<ClauseEntry> body = new ArrayList<>(Arrays.asList(r.getBody()));
+		body.remove(trigger);
+
+		return matchRuleBody(body, context);
+	}
+
+	private boolean matchRuleBody(BFRuleContext context) {
+		Rule r = context.getRule();
+		List<ClauseEntry> body = new ArrayList<>(Arrays.asList(r.getBody()));
+
+		return matchRuleBody(body, context);
+	}
+
+	private boolean matchRuleBody(List<ClauseEntry> body, BFRuleContext context) {
+		// Create an ordered list of body clauses to process, best at the end
+
+		int len = body.size();
+		List<ClauseEntry> clauses = new ArrayList<ClauseEntry>(len);
+
+		if (len == 1) {
+			clauses.add(body.get(0));
 			// No clauses to add, just fall through to clause matcher
-		} else if (len == 2) {
-			// Only one clause remaining, no reordering necessary
-			Object clause = body[trigger == 0 ? 1 : 0];
-			if (clause instanceof TriplePattern) {
-				clauses.add((TriplePattern) clause);
-			}
 		} else {
 			// Pick most bound remaining clause as the best one to go first
 			int bestscore = 0;
 			int best = -1;
 			for (int i = 0; i < len; i++) {
-				if (i == trigger)
-					continue; // Skip the clause already processed
 				BindingStack env = context.getEnvStack();
-				if (body[i] instanceof TriplePattern) {
-					TriplePattern clause = (TriplePattern) body[i];
+				if (body.get(i) instanceof TriplePattern) {
+					TriplePattern clause = (TriplePattern) body.get(i);
 					int score = scoreNodeBoundness(clause.getSubject(), env) * 3
 							+ scoreNodeBoundness(clause.getPredicate(), env) * 2
 							+ scoreNodeBoundness(clause.getObject(), env) * 3;
@@ -403,14 +436,14 @@ public class FRuleEngine implements FRuleEngineI {
 			}
 
 			for (int i = 0; i < len; i++) {
-				if (i == trigger || i == best)
+				if (i == best)
 					continue;
-				if (body[i] instanceof TriplePattern) {
-					clauses.add(body[i]);
+				if (body.get(i) instanceof TriplePattern) {
+					clauses.add(body.get(i));
 				}
 			}
 			if (best != -1)
-				clauses.add(body[best]);
+				clauses.add(body.get(best));
 		}
 
 		// Call a recursive clause matcher in the ordered list of clauses
@@ -473,7 +506,7 @@ public class FRuleEngine implements FRuleEngineI {
 				Object hClause = rule.getHeadElement(i);
 				if (hClause instanceof TriplePattern) {
 					Triple t = env.instantiate((TriplePattern) hClause);
-					// System.out.println("t? " + t);
+//					System.out.println("inst: " + t);
 					if (!t.getSubject().isLiteral()) {
 						// Only add the result if it is legal at the RDF level.
 						// E.g. RDFS rules can create assertions about literals
@@ -516,14 +549,15 @@ public class FRuleEngine implements FRuleEngineI {
 			objPattern = null;
 		}
 		Iterator<Triple> i = infGraph.findDataMatches(env.getBinding(clause.getSubject()),
-				env.getBinding(clause.getPredicate()), env.getBinding(objPattern));
+				env.getBinding(clause.getPredicate()), objPattern);
 		boolean foundMatch = false;
 		while (i.hasNext()) {
 			Triple t = i.next();
 			// Add the bindings to the environment
 			env.push();
-			if (match(clause.getPredicate(), t.getPredicate(), env) && match(clause.getObject(), t.getObject(), env)
-					&& match(clause.getSubject(), t.getSubject(), env)) {
+			boolean match = match(clause.getPredicate(), t.getPredicate(), env) && match(clause.getObject(), t.getObject(), env)
+					&& match(clause.getSubject(), t.getSubject(), env);
+			if (match) {
 				foundMatch |= matchClauseList(clausesCopy, context);
 			}
 			env.unwind();

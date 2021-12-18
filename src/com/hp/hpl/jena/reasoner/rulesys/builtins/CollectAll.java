@@ -58,12 +58,17 @@ public abstract class CollectAll extends BaseBuiltin {
 	}
 
 	// to be overridden by subclasses
-	
+
 	protected void expanding(Node n, Node property) {
 	}
 
 	protected boolean expanded(Node n, int iteration) {
 		return true;
+	}
+
+	@Override
+	public boolean isMonotonic() {
+		return false;
 	}
 }
 

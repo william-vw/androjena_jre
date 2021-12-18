@@ -17,7 +17,7 @@ public class JenaExplainer {
 
 //		exp.explainCase("sleep-apnea", "sa", "patient_prov.ttl", "sleep-apnea_all.ttl", "graphic.jena",
 //				"sa:hasDiagnosis");
-		exp.explainCase("copd", "copd", "patient_prov.ttl", "copd_yellow1.ttl", "graphic.jena", "copd:isStratified");
+		exp.explainCase("copd", "copd", "patient_prov.ttl", "copd_yellow1.ttl", "sentence.jena", "copd:isStratified");
 //		exp.explainCase("copd", "copd", "patient2_prov.ttl", "copd_yellow-red1.ttl", "sentence.jena",
 //				"copd:isStratified");
 	}

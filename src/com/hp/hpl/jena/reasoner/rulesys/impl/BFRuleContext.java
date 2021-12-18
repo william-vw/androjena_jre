@@ -189,6 +189,11 @@ public class BFRuleContext implements RuleContext {
         return graph.findDataMatches(s, p, o);
     }
     
+    // edit wvw
+    public boolean hasNextTriple() {
+    	return !stack.isEmpty();
+    }
+    
     /**
      * Return the next triple to be added to the graph, removing it from
      * the stack.

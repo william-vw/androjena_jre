@@ -1,10 +1,5 @@
 -- TODO
 
-yes, a race condition
-	need ability to set saliency of rules 
-currently solved by applying "universal" rules in separate run
-	likely better to identify & stratify "universal" rules as with jen3
-
 test COPD case more extensively
 
 joinLinked, .. -> collectAll (list)
@@ -47,6 +42,13 @@ needed to adapt FRuleEngine to keep (different) derivations of already inferred 
 and, associate descriptions, sentences with derivations instead of node-sets
 
 
+> non-monotonic rules
+.. these constructs are really needed to make these rules feasible
+	(countAll, joinAll..)
+
+yes, these lead to race conditions
+currently identifying & stratifying "universal" rules in FRuleEngine as with jen3
+
 
 -- CODE CHANGES
 
@@ -55,10 +57,9 @@ it.polimi.dei.dbgroup.pedigree.androjena.xml.DOMTransformer;
 
 commented out referring code in com.hp.hpl.jena.rdf.arp.DOM2Model
 
-added
-	 public static List<Rule> rulesFromStream( InputStream in )
-to 
+edited:
 	com.hp.hpl.jena.reasoner.rulesys.Rule.java
+	com.hp.hpl.jena.reasoner.rulesys.impl.FRuleEngine.java
 
 added com.hp.hpl.jena.reasoner.rulesys.builtins.MakeSkolem, IsUri, 
 	UriStr (not needed), LocalName, CollectAll (& subclasses), SplitOnCase, Trim, NoMatch

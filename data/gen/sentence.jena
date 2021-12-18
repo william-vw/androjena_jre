@@ -27,7 +27,7 @@
 	(<> xpl:output ?deriv)
 	countAllLinked(?deriv xpl:via xpl:sourceFunctorName 1)
 	(?deriv xpl:via ?en1) (?en1 xpl:sourceFunctorName ?x) 
-	(?en1 xpl:derivation ?deriv1) (?deriv1 xpl:functorDescription ?fdescr)
+	(?en1 xpl:functorDescription ?fdescr)
 	strConcat("(which " ?fdescr ")" ?sentence)
 ->
 	(?deriv xpl:functorSentence ?sentence)
