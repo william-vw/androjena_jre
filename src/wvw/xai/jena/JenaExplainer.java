@@ -17,7 +17,7 @@ public class JenaExplainer {
 
 //		exp.explainCase("sleep-apnea", "sa", "patient_prov.ttl", "sleep-apnea_all.ttl", "graphic.jena",
 //				"sa:hasDiagnosis");
-		exp.explainCase("copd", "copd", "patient_prov.ttl", "copd_yellow1.ttl", "sentence.jena", "copd:isStratified");
+		exp.explainCase("copd", "copd", "patient_prov.ttl", "copd_yellow1.ttl", "graphic.jena", "copd:isStratified");
 //		exp.explainCase("copd", "copd", "patient2_prov.ttl", "copd_yellow-red1.ttl", "sentence.jena",
 //				"copd:isStratified");
 	}
@@ -62,9 +62,9 @@ public class JenaExplainer {
 				"out/" + derivFile };
 
 		String[] selectPaths = { "data/select/epm.jena", "data/select/trace.jena", "data/select/add-info.jena",
-				"data/gen/descr.jena", "data/gen/merge_recom.jena" };
+				"data/gen/merge_recom.jena" };
 
-		String[] genPaths = { "data/gen/" + genFile };
+		String[] genPaths = { "data/gen/descr.jena", "data/gen/" + genFile };
 
 		ExplainUseCaseDerivations.explain(prefixNs, dataPaths, selectPaths, genPaths, targetPrp);
 	}
