@@ -1,7 +1,0 @@
-[context1:
-	(<> xpl:output ?out) (?out rdf:type xpl:Reason)
-	(?out xpl:entity ?en) (?en pml:hasConclusion ?cl)
-	(?cl prov:wasGeneratedBy ?gen) (?gen rdf:type xpl:EntryActivity)
-->
-	(?out xpl:included "true"^^xsd:boolean)
-]

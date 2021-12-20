@@ -1,7 +1,0 @@
-[E1:
-	(?en pml:isConsequentOf ?gen) (?gen prov:qualifiedUsage ?us) 
-	(?us prov:entity ?en0)
-	makeSkolem(?deriv ?gen xpl:derivation)
-->
-	(?en xpl:derivation ?deriv) (?deriv xpl:via ?en0)
-]
